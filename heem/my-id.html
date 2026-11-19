@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | الهوية الرقمية المعتمدة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="qrcode.min.js"></script>
+<script>if(typeof qrcode==='undefined'){document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"><\/script>');}</script>
+<style>
+  :root {
+    --navy-dark: #0F1F33;
+    --navy: #1E3A5F;
+    --navy-light: #2B4E7C;
+    --gold: #E8CFA8;
+    --gold-hover: #D4B88E;
+    --gold-dark: #9E7D46;
+    --bg-page: #0C1624;
+    --card-bg: #15273F;
+    --card-border: rgba(232, 207, 168, 0.35);
+    --line: rgba(232, 207, 168, 0.15);
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(232, 207, 168, 0.1);
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Noto Sans Arabic", "Segoe UI", sans-serif;
+    background: radial-gradient(circle at 50% 20%, #172E4C 0%, #0A1422 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 60px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* الرأس العلوي */
+  .top-nav {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 28px;
+  }
+  .brand-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-hover));
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  }
+  .brand-text h1 {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .brand-text span {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .btn-back-home:hover {
+    background: var(--gold);
+    color: var(--navy-dark);
+    border-color: var(--gold);
+  }
+
+  /* حاوية بطاقة الهوية */
+  .id-container {
+    width: 100%;
+    max-width: 620px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .instructions-hint {
+    background: rgba(232, 207, 168, 0.1);
+    border: 1px solid rgba(232, 207, 168, 0.25);
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 0.82rem;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 0.8s ease;
+  }
+
+  /* ══════════ البطاقة ثلاثية الأبعاد ══════════ */
+  .card-scene {
+    width: 100%;
+    max-width: 560px;
+    height: 350px;
+    perspective: 1400px;
+    cursor: pointer;
+  }
+
+  .card-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 20px;
+  }
+
+  .card-3d.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    border: 1.5px solid var(--card-border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 22px 26px;
+    background: linear-gradient(135deg, #12243B 0%, #1B3556 50%, #102136 100%);
+  }
+
+  /* نقش هندسي راقي كعلامة مائية */
+  .card-face::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(232, 207, 168, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(232, 207, 168, 0.06) 0%, transparent 40%),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 0, transparent 16px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ══════════ الوجه الأمامي (Front Face) ══════════ */
+  .card-face.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  /* الترويسة */
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+  .card-header-titles {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-header-titles .country {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.5px;
+  }
+  .card-header-titles .platform-title {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .card-header-titles .doc-type {
+    font-size: 0.75rem;
+    color: rgba(232, 207, 168, 0.85);
+    font-weight: 600;
+    margin-top: 1px;
+  }
+  .card-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-header-logo .emblem {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--gold), #CAA468);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    box-shadow: 0 0 12px rgba(232, 207, 168, 0.4);
+  }
+
+  /* جسم البطاقة الأمامية */
+  .card-body-front {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    position: relative;
+    z-index: 2;
+    margin: auto 0;
+  }
+
+  /* الصورة الشخصية */
+  .photo-frame {
+    width: 104px;
+    height: 124px;
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    background: #0E1A29;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+  }
+  .photo-placeholder svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.6;
+  }
+
+  /* الشريحة الذكية */
+  .smart-chip {
+    width: 38px;
+    height: 28px;
+    background: linear-gradient(135deg, #FFDF9E 0%, #D4AF37 50%, #996515 100%);
+    border-radius: 6px;
+    position: absolute;
+    top: 56px;
+    left: 26px;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.4);
+    border: 1px solid #7A5210;
+    z-index: 2;
+  }
+  .smart-chip::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+  }
+
+  /* البيانات الأساسية */
+  .front-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .front-info .name-label {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .front-info .full-name {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.35;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .front-field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .front-field-row .label {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.78rem;
+    min-width: 50px;
+  }
+  .front-field-row .val {
+    font-weight: 500;
+    direction: ltr;
+    text-align: right;
+  }
+
+  /* تذييل البطاقة الأمامية */
+  .card-footer-front {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    position: relative;
+    z-index: 2;
+  }
+  .id-serial {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+  }
+  .id-verified-seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(30, 126, 52, 0.2);
+    border: 1px solid rgba(40, 167, 69, 0.4);
+    color: #4cd964;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .id-verified-seal svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.5;
+  }
+
+  /* ══════════ الوجه الخلفي (Back Face) ══════════ */
+  .card-face.back {
+    transform: rotateY(180deg);
+    padding: 16px 24px 20px;
+  }
+
+  /* الشريط الأمني المغناطيسي */
+  .mag-stripe {
+    width: calc(100% + 48px);
+    margin: -16px -24px 14px;
+    height: 38px;
+    background: linear-gradient(90deg, #070D16 0%, #151F2E 50%, #070D16 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    position: relative;
+  }
+  .mag-stripe::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(232, 207, 168, 0.15);
+  }
+
+  .card-body-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+
+  /* صندوق رمز الاستجابة السريعة QR */
+  .qr-box-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    background: #fff;
+    padding: 10px 10px 8px;
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+  }
+  #card-qrcode {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #card-qrcode canvas, #card-qrcode img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .qr-caption {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    text-align: center;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+
+  /* قائمة التفاصيل المكتوبة بالخلف */
+  .back-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .back-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+    border: 1px solid rgba(232, 207, 168, 0.1);
+  }
+  .back-detail-item .item-label {
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .back-detail-item .item-val {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* تذييل الوجه الخلفي */
+  .card-footer-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding-top: 8px;
+    position: relative;
+    z-index: 2;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .official-stamp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.72rem;
+  }
+  .official-stamp svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ══════════ أزرار التحكم بالبطاقة ══════════ */
+  .card-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .action-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    font-family: inherit;
+    text-decoration: none;
+  }
+  .btn-flip-card {
+    background: linear-gradient(135deg, var(--gold), var(--gold-hover));
+    color: var(--navy-dark);
+    box-shadow: 0 4px 16px rgba(232, 207, 168, 0.3);
+  }
+  .btn-flip-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 207, 168, 0.5);
+  }
+  .btn-print-card {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .btn-print-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* حالة الخطأ أو عدم الاعتماد */
+  .status-notice-box {
+    background: rgba(21, 39, 63, 0.9);
+    border: 2px solid rgba(232, 207, 168, 0.3);
+    border-radius: 16px;
+    padding: 36px 24px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .status-notice-box h2 {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  .status-notice-box p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* الرسوم المتحركة */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ══════════ الطباعة (Print Styles) ══════════ */
+  @media print {
+    body {
+      background: #fff !important;
+      color: #000 !important;
+      padding: 0 !important;
+    }
+    .top-nav, .instructions-hint, .card-actions-bar {
+      display: none !important;
+    }
+    .id-container {
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+    .card-scene {
+      max-width: 560px !important;
+      height: 350px !important;
+      page-break-inside: avoid;
+      margin: 20px auto;
+    }
+    .card-3d {
+      transform: none !important;
+    }
+    .card-face.front {
+      position: relative !important;
+      margin-bottom: 30px;
+      page-break-after: always;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .card-face.back {
+      position: relative !important;
+      transform: none !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-scene {
+      height: 320px;
+    }
+    .card-face {
+      padding: 16px 18px;
+    }
+    .photo-frame {
+      width: 80px;
+      height: 98px;
+    }
+    .smart-chip {
+      display: none;
+    }
+    .front-info .full-name {
+      font-size: 1rem;
+    }
+    #card-qrcode {
+      width: 95px;
+      height: 95px;
+    }
+    #card-qrcode canvas, #card-qrcode img {
+      width: 95px !important;
+      height: 95px !important;
+    }
+    .back-detail-item {
+      padding: 3px 6px;
+    }
+    .back-detail-item .item-label, .back-detail-item .item-val {
+      font-size: 0.72rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- شريط الملاحة العلوي -->
+<header class="top-nav">
+  <a href="individual.html" class="brand-box">
+    <div class="brand-logo"></div>
+    <div class="brand-text">
+      <h1>حلفاية الملوك</h1>
+      <span>الهوية الرقمية الموحدة</span>
+    </div>
+  </a>
+
+  <a href="individual.html" class="btn-back-home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span>الرجوع للرئيسية</span>
+  </a>
+</header>
+
+<!-- في حالة عدم اعتماد الهوية أو قيد المراجعة -->
+<div class="status-notice-box" id="notice-box">
+  <div style="font-size:2.8rem;margin-bottom:12px" id="notice-icon">⏳</div>
+  <h2 id="notice-title">طلب الهوية قيد المراجعة</h2>
+  <p id="notice-desc">طلب هويتك الرقمية قيد التدقيق والمراجعة من قبل إدارة المنصة. يرجى الانتظار لحين اعتمادها من قِبل المسؤول.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="individual.html" class="action-pill-btn btn-flip-card">العودة للرئيسية</a>
+    <a href="create-id.html" class="action-pill-btn btn-print-card" id="btn-reapply" style="display:none">تقديم طلب جديد</a>
+  </div>
+</div>
+
+<!-- المحتوى الرئيسي للبطاقة -->
+<main class="id-container" id="card-main-container" style="display:none">
+
+  <div class="instructions-hint">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+    <span>انقر على البطاقة أو زر القلب بالأسفل لقلبها ومشاهدة الوجه الآخر ورمز الـ QR</span>
+  </div>
+
+  <!-- مسرح البطاقة ثلاثي الأبعاد -->
+  <div class="card-scene" id="card-scene" onclick="flipCard()">
+    <div class="card-3d" id="card-3d">
+
+      <!-- ══════════ 1. الوجه الأمامي (FRONT) ══════════ -->
+      <div class="card-face front">
+        <!-- ترويسة البطاقة -->
+        <div class="card-header">
+          <div class="card-header-titles">
+            <span class="country">جمهورية السودان • ولاية الخرطوم</span>
+            <span class="platform-title">منصة أبناء حلفاية الملوك</span>
+            <span class="doc-type">بطاقة الهوية الرقمية المعتمدة ✦</span>
+          </div>
+          <div class="card-header-logo">
+            <div class="emblem"></div>
+          </div>
+        </div>
+
+        <!-- الشريحة الإلكترونية الذكية ثلاثية الأبعاد -->
+        <div class="smart-chip" title="شريحة ذكية مشفرة"></div>
+
+        <!-- وسط البطاقة: الصورة + الاسم الرباعي + الهاتف + البريد -->
+        <div class="card-body-front">
+          <div class="photo-frame" id="front-photo-frame">
+            <div class="photo-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+          </div>
+
+          <div class="front-info">
+            <span class="name-label">الاسم الرباعي المعتمد:</span>
+            <h2 class="full-name" id="front-full-name">جاري التحميل...</h2>
+
+            <div class="front-field-row" style="margin-top:4px">
+              <span class="label">الهاتف:</span>
+              <span class="val" id="front-phone">-</span>
+            </div>
+
+            <div class="front-field-row">
+              <span class="label">البريد:</span>
+              <span class="val" id="front-email">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- تذييل الوجه الأمامي -->
+        <div class="card-footer-front">
+          <div>
+            <span style="font-size:0.68rem;color:rgba(255,255,255,0.6);display:block">رقم الهوية:</span>
+            <span class="id-serial" id="front-serial">HAL-2026-00000</span>
+          </div>
+
+          <div class="id-verified-seal">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>معتمدة رسمياً</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ 2. الوجه الخلفي (BACK) ══════════ -->
+      <div class="card-face back">
+        <!-- الشريط المغناطيسي -->
+        <div class="mag-stripe"></div>
+
+        <!-- وسط الوجه الخلفي: QR Code + تفاصيل العضو الإضافية -->
+        <div class="card-body-back">
+          <!-- صندوق الـ QR Code -->
+          <div class="qr-box-wrapper" title="امسح الرمز بكاميرا الهاتف">
+            <div id="card-qrcode"></div>
+            <span class="qr-caption">مسح للتحقق والبيانات</span>
+          </div>
+
+          <!-- تفاصيل العضو: الجنس، الجنسية، العلاقة بالحلفاية، تاريخ الميلاد -->
+          <div class="back-details">
+            <div class="back-detail-item">
+              <span class="item-label">الجنس:</span>
+              <span class="item-val" id="back-gender">-</span>
+            </div>
+            <div class="back-detail-item">
+              <span class="item-label">الجنسية:</span>
+              <span class="item-val" id="back-nationality">-</span>
+            </div>
+            <div class="back-detail-item">
+              <span class="item-label">العلاقة بالحلفاية:</span>
+              <span class="item-val" id="back-relation">-</span>
+            </div>
+            <div class="back-detail-item">
+              <span class="item-label">تاريخ الميلاد:</span>
+              <span class="item-val" id="back-birthdate">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- تذييل الوجه الخلفي -->
+        <div class="card-footer-back">
+          <div class="official-stamp">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>ختم الاعتماد الرقمي • أمانة شؤون العضوية</span>
+          </div>
+          <span style="direction:ltr;font-family:monospace;font-size:0.68rem;opacity:0.7">VERIFIED-SECURE</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- شريط أزرار التحكم -->
+  <div class="card-actions-bar">
+    <button class="action-pill-btn btn-flip-card" onclick="flipCard()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+      <span id="flip-btn-text">⟲ قلب البطاقة (مشاهدة الوجه الخلفي)</span>
+    </button>
+
+    <button class="action-pill-btn btn-print-card" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+      <span>طباعة / حفظ الهوية (PDF)</span>
+    </button>
+  </div>
+
+</main>
+
+<script>
+  // تحديد عنوان الخادم المناسب سواء فُتح كملف محلي أو عبر السيرفر
+  const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+
+  let isCardFlipped = false;
+  function flipCard() {
+    const card = document.getElementById('card-3d');
+    isCardFlipped = !isCardFlipped;
+    card.classList.toggle('flipped', isCardFlipped);
+    
+    const btnText = document.getElementById('flip-btn-text');
+    if (btnText) {
+      btnText.textContent = isCardFlipped 
+        ? '⟲ قلب البطاقة (مشاهدة الوجه الأمامي)' 
+        : '⟲ قلب البطاقة (مشاهدة الوجه الخلفي)';
+    }
+  }
+
+  // قراءة المعرف من الرابط (Query Param) أو من المستخدم الحالي المسجل
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetUserParam = urlParams.get('user');
+
+  const rawUser = localStorage.getItem('halfaia_current_user');
+  let currentUser = null;
+  try {
+    currentUser = rawUser ? JSON.parse(rawUser) : null;
+  } catch(e) {}
+
+  const activeIdentifier = targetUserParam || (currentUser ? currentUser.identifier : null);
+
+  if (!activeIdentifier) {
+    showNotice(
+      '🔒 يرجى تسجيل الدخول أولاً',
+      'يجب عليك تسجيل الدخول بحسابك للوصول إلى بطاقة هويتك الرقمية.',
+      '🔐'
+    );
+  } else {
+    loadMemberIdentity(activeIdentifier);
+  }
+
+  async function loadMemberIdentity(userIdentifier) {
+    try {
+      const res = await fetch(`${API_BASE}/api/my-identity?userIdentifier=${encodeURIComponent(userIdentifier)}`);
+      const data = await res.json();
+
+      if (!data.ok || !data.hasRequest) {
+        showNotice(
+          'لم يتم إنشاء هوية رقمية بعد',
+          'لم نجد أي طلب مسجل باسمك لإنشاء هوية رقمية. يرجى تقديم طلبك الآن.',
+          '📋',
+          true
+        );
+        return;
+      }
+
+      const req = data.identity;
+      const status = req.status || 'pending';
+
+      if (status === 'pending') {
+        showNotice(
+          '⏳ طلبك قيد المراجعة والتدقيق',
+          'طلب هويتك الرقمية قيد التدقيق حالياً من قِبل إدارة منصة أبناء حلفاية الملوك. سيتم تفعيل بطاقتك الرقمية فور قيام المسؤول باعتماد الطلب.',
+          '⏳'
+        );
+        return;
+      }
+
+      if (status === 'rejected') {
+        showNotice(
+          '❌ تم رفض طلب الهوية',
+          'نعتذر، لم يتم اعتماد طلب الهوية الحالي. يمكنك تصحيح بياناتك ورفع المستندات المطلوبة وإعادة التقديم من جديد.',
+          '❌',
+          true
+        );
+        return;
+      }
+
+      // الحالة معتمدة (Approved) -> عرض البطاقة وتوليد الـ QR
+      renderIdentityCard(req);
+
+    } catch (err) {
+      console.error('Error fetching identity:', err);
+      // محاولة استخدام البيانات المعتمدة المحفوظة محلياً كبديل سريع
+      try {
+        const cached = localStorage.getItem('halfaia_approved_id_' + userIdentifier);
+        if (cached) {
+          const cachedData = JSON.parse(cached);
+          if (cachedData && (cachedData.status === 'approved' || cachedData.full_name)) {
+            renderIdentityCard(cachedData);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      showNotice(
+        'تعذر جلب بيانات الهوية',
+        'حدث خطأ في الاتصال بالخادم. يرجى التحقق من اتصالك والمحاولة مجدداً.',
+        '⚠️'
+      );
+    }
+  }
+
+  function showNotice(title, desc, icon = '⏳', canReapply = false) {
+    document.getElementById('card-main-container').style.display = 'none';
+    const box = document.getElementById('notice-box');
+    box.style.display = 'block';
+    document.getElementById('notice-title').textContent = title;
+    document.getElementById('notice-desc').textContent = desc;
+    document.getElementById('notice-icon').textContent = icon;
+    if (canReapply) {
+      document.getElementById('btn-reapply').style.display = 'inline-flex';
+    }
+  }
+
+  function renderIdentityCard(idData) {
+    document.getElementById('notice-box').style.display = 'none';
+    document.getElementById('card-main-container').style.display = 'flex';
+
+    // 1. الوجه الأمامي:
+    // الاسم الرباعي
+    document.getElementById('front-full-name').textContent = idData.full_name || 'غير محدد';
+    // رقم الهاتف
+    document.getElementById('front-phone').textContent = idData.phone || '-';
+    // البريد الإلكتروني
+    document.getElementById('front-email').textContent = idData.email || '-';
+    // رقم الهوية
+    const formattedId = 'HAL-2026-' + String(idData.id).padStart(5, '0');
+    document.getElementById('front-serial').textContent = formattedId;
+
+    // الصورة الشخصية
+    const photoFrame = document.getElementById('front-photo-frame');
+    if (idData.photo_data) {
+      photoFrame.innerHTML = `<img src="${idData.photo_data}" alt="${escapeHtml(idData.full_name)}">`;
+    } else {
+      // محاولة استخدام الصورة المحفوظة محلياً إن وجدت
+      const localAvatar = localStorage.getItem('halfaia_avatar_' + (currentUser ? currentUser.identifier : ''));
+      if (localAvatar) {
+        photoFrame.innerHTML = `<img src="${localAvatar}" alt="الصورة الشخصية">`;
+      }
+    }
+
+    // 2. الوجه الخلفي:
+    // الجنس
+    document.getElementById('back-gender').textContent = idData.gender || '-';
+    // الجنسية
+    document.getElementById('back-nationality').textContent = idData.nationality || '-';
+    // العلاقة بالحلفاية
+    document.getElementById('back-relation').textContent = idData.halfaia_relation || '-';
+    // تاريخ الميلاد
+    document.getElementById('back-birthdate').textContent = idData.birth_date || '-';
+
+    // 3. توليد رمز الـ QR Code الفعلي
+    generateIdentityQR(idData, formattedId);
+  }
+
+  function generateIdentityQR(idData, formattedId) {
+    const qrContainer = document.getElementById('card-qrcode');
+    qrContainer.innerHTML = '';
+
+    // النص الشامل المنسق الذي يظهر فوراً عند مسح الكود بكاميرا أي هاتف ذكي
+    const qrText = 
+`بطاقة الهوية الرقمية - حلفاية الملوك
+----------------------------------
+الاسم: ${idData.full_name || '-'}
+رقم الهوية: ${formattedId}
+الجنس: ${idData.gender || '-'}
+الجنسية: ${idData.nationality || '-'}
+العلاقة بالحلفاية: ${idData.halfaia_relation || '-'}
+تاريخ الميلاد: ${idData.birth_date || '-'}
+الهاتف: ${idData.phone || '-'}
+البريد: ${idData.email || '-'}
+----------------------------------
+الحالة: معتمدة ومسجلة رسمياً ✅`;
+
+    // 1. التوليد عبر مكتبة qrcode-generator المحلية باللغة العربية
+    if (typeof qrcode === 'function') {
+      try {
+        if (qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+          qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        }
+        const qr = qrcode(0, 'M');
+        qr.addData(qrText, 'Byte');
+        qr.make();
+        qrContainer.innerHTML = qr.createImgTag(3, 2);
+        const img = qrContainer.querySelector('img');
+        if (img) {
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.display = 'block';
+          img.style.objectFit = 'contain';
+        }
+        return;
+      } catch (err) {
+        console.warn('qrcode local generator error:', err);
+      }
+    }
+
+    // 2. بديل فوري في حالة عدم توفر المكتبة
+    const encoded = encodeURIComponent(qrText);
+    qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encoded}" alt="QR Code" style="width:100%;height:100%;object-fit:contain;display:block">`;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, m => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[m]));
+  }
+</script>
+
+</body>
+</html>

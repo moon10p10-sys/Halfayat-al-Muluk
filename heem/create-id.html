@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | طلب إنشاء هوية رقمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gray-base:#808080;--navy:#1E3A5F;--navy-dark:#152C48;--navy-light:#2A4E7A;--gold-beige:#E8CFA8;--gold-hover:#D4B88E;--bg-page:#F0F2F5;--bg-card:#fff;--line:rgba(30,58,95,.12);--shadow-sm:0 1px 3px rgba(30,58,95,.06);--shadow-md:0 6px 22px rgba(30,58,95,.09);--shadow-lg:0 14px 36px rgba(30,58,95,.16);--shadow-gold:0 4px 16px rgba(232,207,168,.4);--error:#C0392B;--success:#1E7E34;--radius:16px;--radius-sm:10px;--transition:all .25s cubic-bezier(.4,0,.2,1)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;color:var(--navy);background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  button,input,select{font-family:inherit}
+  :focus-visible{outline:3px solid var(--gold-hover);outline-offset:2px}
+
+  /* الرأس */
+  .top-bar{background:var(--bg-card);padding:10px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:relative;z-index:10}
+  .logo-box{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy-dark)}
+  .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+  .logo-title{font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:1.1rem}
+  .btn-back{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--radius-sm);background:rgba(30,58,95,.05);border:1px solid var(--line);color:var(--navy);font-weight:600;font-size:.82rem;text-decoration:none;transition:var(--transition)}
+  .btn-back:hover{background:var(--navy);color:var(--gold-beige);border-color:var(--navy)}
+  .btn-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+  /* البانر */
+  .hero-strip{background:linear-gradient(120deg,var(--navy-dark),var(--navy) 55%,var(--navy-light));color:#fff;padding:34px clamp(16px,4vw,48px) 78px;border-bottom:3px solid var(--gold-beige);position:relative;overflow:hidden}
+  .hero-strip::before{content:'';position:absolute;left:-70px;top:-90px;width:300px;height:300px;border:1px solid rgba(232,207,168,.22);border-radius:50%;box-shadow:0 0 0 40px rgba(232,207,168,.05),0 0 0 80px rgba(232,207,168,.04)}
+  .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;position:relative}
+  .hero-text h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.65rem;font-weight:700;color:var(--gold-beige);margin-bottom:8px;display:flex;align-items:center;gap:12px}
+  .hero-text h1 svg{width:32px;height:32px;stroke:var(--gold-beige);fill:none;stroke-width:1.8}
+  .hero-text p{font-size:.93rem;color:rgba(255,255,255,.85);line-height:1.8;max-width:600px}
+  .badge-status{padding:7px 18px;border-radius:20px;background:rgba(232,207,168,.14);border:1px solid rgba(232,207,168,.4);color:var(--gold-beige);font-size:.8rem;font-weight:600;white-space:nowrap}
+  .mini-id{width:230px;height:140px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(232,207,168,.45);padding:16px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.25);transform:rotate(-3deg)}
+  .mini-id .row{display:flex;align-items:center;gap:10px}
+  .mini-id .ph{width:42px;height:42px;border-radius:10px;background:rgba(232,207,168,.25);flex-shrink:0}
+  .mini-id .ln{height:7px;border-radius:4px;background:rgba(255,255,255,.35);flex:1}
+  .mini-id .ln.s{flex:none;width:55%;background:rgba(232,207,168,.55)}
+  .mini-id b{font-family:"Noto Kufi Arabic",sans-serif;font-size:.72rem;color:var(--gold-beige);letter-spacing:.5px}
+
+  /* التخطيط */
+  .container{max-width:1100px;width:100%;margin:-48px auto 60px;padding:0 16px;display:grid;grid-template-columns:270px 1fr;gap:24px;align-items:start;position:relative;z-index:2}
+  .side{position:sticky;top:16px;display:flex;flex-direction:column;gap:16px}
+  .side-card{background:var(--bg-card);border-radius:var(--radius);padding:22px 20px;box-shadow:var(--shadow-md);border:1px solid var(--line)}
+  .side-card h4{font-family:"Noto Kufi Arabic",sans-serif;font-size:.95rem;color:var(--navy-dark);margin-bottom:14px}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:s}
+  .steps li{display:flex;align-items:center;gap:12px;font-size:.88rem;font-weight:600;color:var(--navy-dark);counter-increment:s}
+  .steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--gold-beige);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+  .side-card.gold{background:linear-gradient(135deg,var(--gold-beige),#F3E2C4);border-color:rgba(212,184,142,.6)}
+  .side-card.gold p{font-size:.82rem;line-height:1.8;color:var(--navy-dark)}
+
+  .form-card{background:var(--bg-card);border-radius:var(--radius);padding:12px clamp(18px,3.5vw,38px) 34px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+  .form-section{padding:28px 0;border-bottom:1px solid var(--line);counter-increment:sec}
+  .form-card{counter-reset:sec}
+  .form-section:last-of-type{border-bottom:none;padding-bottom:0}
+  .section-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy-dark);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+  .section-title::before{content:counter(sec);width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--gold-beige);display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 4px 10px rgba(30,58,95,.2);flex-shrink:0}
+  .section-title svg{width:20px;height:20px;stroke:var(--gold-hover);fill:none;stroke-width:2;order:2}
+  .section-title span{order:1}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.88rem;font-weight:600;color:var(--navy-dark);margin-bottom:7px}
+  .field label .req{color:var(--error);margin-right:4px}
+  .field .hint{font-size:.76rem;color:var(--gray-base);margin-top:5px}
+
+  .input-control{width:100%;height:48px;padding:0 14px;background:#FAFBFC;color:var(--navy-dark);border:1.5px solid var(--line);border-radius:var(--radius-sm);font-size:.94rem;transition:var(--transition)}
+  .input-control:hover{border-color:rgba(30,58,95,.3)}
+  .input-control:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 4px rgba(30,58,95,.08);outline:none}
+  select.input-control{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231E3A5F' stroke-width='3'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;padding-left:38px}
+
+  .editable-field-group{display:flex;align-items:stretch;gap:8px}
+  .input-shaded{flex:1;min-width:0;height:48px;padding:0 14px;background:#EEF0F3;color:#5A6678;border:1.5px dashed rgba(128,128,128,.35);border-radius:var(--radius-sm);font-size:.94rem;font-weight:500;transition:var(--transition);appearance:none}
+  .input-shaded.active-edit{background:#fff;color:var(--navy-dark);border:1.5px solid var(--navy);box-shadow:0 0 0 4px rgba(30,58,95,.08);outline:none}
+  .btn-edit-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 18px;height:48px;border-radius:var(--radius-sm);border:1.5px solid var(--navy);background:#fff;color:var(--navy);font-weight:600;font-size:.86rem;cursor:pointer;transition:var(--transition);white-space:nowrap;flex-shrink:0}
+  .btn-edit-toggle:hover{background:var(--navy);color:var(--gold-beige)}
+  .btn-edit-toggle.is-saving{background:var(--success);border-color:var(--success);color:#fff}
+  .btn-edit-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+  .gender-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .radio-card{position:relative;border:1.5px solid var(--line);border-radius:var(--radius-sm);height:48px;padding:0 16px;background:#FAFBFC;cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;transition:var(--transition);user-select:none}
+  .radio-card:hover{border-color:rgba(30,58,95,.35)}
+  .radio-card input{position:absolute;opacity:0;pointer-events:none}
+  .radio-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gray-base);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
+  .radio-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--navy);transform:scale(0);transition:transform .2s}
+  .radio-card.active{border-color:var(--navy);background:rgba(30,58,95,.05);box-shadow:0 0 0 1px var(--navy)}
+  .radio-card.active .radio-dot{border-color:var(--navy)}
+  .radio-card.active .radio-dot::after{transform:scale(1)}
+
+  .upload-box{border:2px dashed rgba(30,58,95,.22);border-radius:var(--radius);padding:26px 18px;text-align:center;background:linear-gradient(180deg,#FAFBFC,#F3F5F8);cursor:pointer;transition:var(--transition);position:relative}
+  .upload-box:hover{border-color:var(--gold-hover);background:rgba(232,207,168,.12);transform:translateY(-2px)}
+  .upload-box input[type="file"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+  .upload-icon{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-light));display:flex;align-items:center;justify-content:center}
+  .upload-icon svg{width:22px;height:22px;stroke:var(--gold-beige);fill:none;stroke-width:2}
+  .upload-title{font-weight:600;font-size:.9rem;color:var(--navy-dark);margin-bottom:4px}
+  .upload-desc{font-size:.76rem;color:var(--gray-base);line-height:1.6}
+  .preview-wrapper{display:none;margin-top:4px;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);background:rgba(30,126,52,.05);border:1px solid rgba(30,126,52,.25);text-align:right}
+  .preview-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--line);flex-shrink:0}
+  .preview-name{font-size:.84rem;font-weight:600;color:var(--navy);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btn-remove-file{background:none;border:1px solid rgba(192,57,43,.3);border-radius:8px;color:var(--error);cursor:pointer;padding:5px 12px;font-size:.78rem;font-weight:600;flex-shrink:0;transition:var(--transition)}
+  .btn-remove-file:hover{background:var(--error);color:#fff}
+
+  .declarations-list{display:flex;flex-direction:column;gap:10px}
+  .decl-item{display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:.88rem;color:var(--navy-dark);line-height:1.7;user-select:none;padding:13px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:#FAFBFC;transition:var(--transition)}
+  .decl-item:hover{border-color:rgba(30,58,95,.35)}
+  .decl-item:has(input:checked){border-color:var(--navy);background:rgba(30,58,95,.045)}
+  .decl-item input[type="checkbox"]{accent-color:var(--navy);width:18px;height:18px;margin-top:3px;cursor:pointer;flex-shrink:0}
+
+  .submit-area{margin-top:32px;padding-top:26px;border-top:1px solid var(--line);text-align:center}
+  .btn-submit{width:100%;max-width:400px;height:54px;border:none;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));color:var(--navy-dark);font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:var(--shadow-gold);transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:10px}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,207,168,.55);background:linear-gradient(135deg,#ECCF9E,#CCA66B)}
+  .btn-submit:active{transform:none}
+  .btn-submit svg{width:20px;height:20px;stroke:var(--navy-dark);fill:none;stroke-width:2.2}
+  .msg-box{margin-top:16px;font-size:.92rem;font-weight:600;min-height:1.4em;text-align:center}
+  .msg-box.err{color:var(--error)}
+  .msg-box.ok{color:var(--success)}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(21,44,72,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-overlay.active{display:flex}
+  .modal-card{background:#fff;border-radius:var(--radius);padding:36px 30px;max-width:480px;width:100%;text-align:center;box-shadow:var(--shadow-lg);border-top:5px solid var(--gold-beige);animation:popIn .3s ease}
+  @keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal-icon{width:66px;height:66px;margin:0 auto 16px;border-radius:50%;background:rgba(30,126,52,.1);color:var(--success);display:flex;align-items:center;justify-content:center}
+  .modal-icon svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:2.5}
+  .modal-card h2{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.3rem;color:var(--navy-dark);margin-bottom:8px}
+  .modal-card p{font-size:.92rem;color:#4A5568;line-height:1.8;margin-bottom:24px}
+  .btn-modal{padding:12px 32px;border-radius:var(--radius-sm);background:var(--navy);color:var(--gold-beige);border:none;font-weight:600;cursor:pointer;font-size:.92rem;transition:var(--transition)}
+  .btn-modal:hover{background:var(--navy-dark);transform:translateY(-1px)}
+
+  @media (max-width:900px){
+    .container{grid-template-columns:1fr;margin-top:-40px}
+    .side{position:static}
+    .steps{flex-direction:row;flex-wrap:wrap;gap:10px 18px}
+    .mini-id{display:none}
+  }
+  @media (max-width:768px){
+    .grid-2{grid-template-columns:1fr;gap:0}
+    .hero-strip{padding:26px 16px 70px}
+    .hero-text h1{font-size:1.3rem}
+    .btn-edit-toggle{padding:0 14px;font-size:.82rem}
+    .logo-title{font-size:1rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- شريط الرأس -->
+<div class="top-bar">
+  <a href="individual.html" class="logo-box">
+    <div class="logo-icon"></div>
+    <span class="logo-title">حلفاية الملوك</span>
+  </a>
+  <a href="individual.html" class="btn-back">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span>العودة للرئيسية</span>
+  </a>
+</div>
+
+<!-- شريط نصي ترحيبي -->
+<div class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2"/><path d="M7 16c0-1.5 1-2.5 2-2.5s2 1 2 2.5"/></svg>
+        طلب إنشاء هوية رقمية
+      </h1>
+      <p>منصة أبناء حلفاية الملوك — يرجى ملء البيانات بدقة لتوثيق عضويتك واستخراج الهوية الرقمية المعتمدة.</p>
+      <div class="badge-status" style="display:inline-block;margin-top:14px">نظام التوثيق الرسمي</div>
+    </div>
+    <div class="mini-id" aria-hidden="true">
+      <div class="row"><div class="ph"></div><div style="flex:1;display:flex;flex-direction:column;gap:7px"><div class="ln"></div><div class="ln s"></div></div></div>
+      <div style="display:flex;flex-direction:column;gap:7px"><div class="ln"></div><div class="ln s"></div></div>
+      <b>HALFAIA DIGITAL ID</b>
+    </div>
+  </div>
+</div>
+
+<!-- الحاوية الرئيسية -->
+<div class="container">
+
+  <aside class="side">
+    <div class="side-card">
+      <h4>خطوات الطلب</h4>
+      <ol class="steps">
+        <li>البيانات الشخصية</li>
+        <li>بيانات التواصل والعضوية</li>
+        <li>المستندات والصور</li>
+        <li>الإقرارات والتعهدات</li>
+      </ol>
+    </div>
+    <div class="side-card gold">
+      <h4>قبل أن تبدأ</h4>
+      <p>جهّز صورة واضحة للجواز أو الرقم الوطني، وصورة شخصية حديثة بخلفية محايدة. يخضع الطلب للتدقيق قبل الاعتماد.</p>
+    </div>
+  </aside>
+
+  <form id="identity-form" class="form-card" novalidate>
+
+    <!-- 1. البيانات الأساسية -->
+    <div class="form-section">
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>البيانات الشخصية</span>
+      </div>
+
+      <div class="field">
+        <label for="full-name">الاسم الرباعي <span class="req">*</span></label>
+        <input type="text" id="full-name" class="input-control" placeholder="اكتب اسمك الرباعي كما في الرقم الوطني أو الجواز" required>
+        <div class="hint">يجب أن يطابق الاسم الوارد في المستند الرسمي تماماً</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="birth-date">تاريخ الميلاد <span class="req">*</span></label>
+          <input type="date" id="birth-date" class="input-control" required>
+        </div>
+
+        <div class="field">
+          <label>الجنس <span class="req">*</span></label>
+          <div class="gender-options">
+            <label class="radio-card active" id="gender-male-label">
+              <input type="radio" name="gender" value="ذكر" checked>
+              <div class="radio-dot"></div>
+              <span>ذكر</span>
+            </label>
+            <label class="radio-card" id="gender-female-label">
+              <input type="radio" name="gender" value="أنثى">
+              <div class="radio-dot"></div>
+              <span>أنثى</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="nationality">الجنسية <span class="req">*</span></label>
+        <select id="nationality" class="input-control" required>
+          <option value="" disabled selected>اختر الجنسية</option>
+          <option value="سوداني">سوداني</option>
+          <option value="مصري">مصري</option>
+          <option value="إثيوبي">إثيوبي</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 2. بيانات التواصل والعضوية -->
+    <div class="form-section">
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>بيانات التواصل والعضوية (مسترجعة من حسابك)</span>
+      </div>
+
+      <div class="field">
+        <label for="phone-field">رقم الهاتف <span class="req">*</span></label>
+        <div class="editable-field-group">
+          <input type="tel" id="phone-field" class="input-shaded" readonly placeholder="05xxxxxxxx">
+          <button type="button" class="btn-edit-toggle" id="btn-edit-phone">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>تعديل</span>
+          </button>
+        </div>
+        <div class="hint">مأخوذ تلقائياً من بيانات العضوية المسجلة</div>
+      </div>
+
+      <div class="field">
+        <label for="email-field">البريد الإلكتروني <span class="req">*</span></label>
+        <div class="editable-field-group">
+          <input type="email" id="email-field" class="input-shaded" readonly placeholder="example@mail.com">
+          <button type="button" class="btn-edit-toggle" id="btn-edit-email">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>تعديل</span>
+          </button>
+        </div>
+        <div class="hint">مأخوذ تلقائياً من بيانات العضوية المسجلة</div>
+      </div>
+
+      <div class="field">
+        <label for="relation-field">العلاقة بالحلفاية (فئة العضوية) <span class="req">*</span></label>
+        <div class="editable-field-group">
+          <select id="relation-field" class="input-shaded" disabled>
+            <option value="العضوية المقيمة">العضوية المقيمة (مقيم حالياً بالحلفاية)</option>
+            <option value="عضوية أبناء الحلفاية">عضوية أبناء الحلفاية (أصول وجذور عائلية)</option>
+            <option value="العضوية المنتسبة">العضوية المنتسبة (صلة اجتماعية أو مهنية)</option>
+          </select>
+          <button type="button" class="btn-edit-toggle" id="btn-edit-relation">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>تعديل</span>
+          </button>
+        </div>
+        <div class="hint">مأخوذة تلقائياً من نوع العضوية المحددة عند التسجيل</div>
+      </div>
+    </div>
+
+    <!-- 3. المرفقات والمستندات -->
+    <div class="form-section">
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <span>المستندات والصور المطلوبة</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>صورة الجواز أو الرقم الوطني <span class="req">*</span></label>
+          <div class="upload-box" id="box-doc">
+            <input type="file" id="file-doc" accept="image/*,.pdf" required>
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <div class="upload-title">رفع صورة الجواز أو الرقم الوطني</div>
+            <div class="upload-desc">انقر لاختيار المستند أو اسحب الملف هنا (JPG, PNG, PDF)</div>
+          </div>
+          <div class="preview-wrapper" id="preview-doc">
+            <img class="preview-thumb" id="thumb-doc" src="" alt="مستند">
+            <span class="preview-name" id="name-doc"></span>
+            <button type="button" class="btn-remove-file" id="remove-doc">إلغاء</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>صورة شخصية للعضو <span class="req">*</span></label>
+          <div class="upload-box" id="box-photo">
+            <input type="file" id="file-photo" accept="image/*" required>
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            </div>
+            <div class="upload-title">رفع صورة شخصية حديثة</div>
+            <div class="upload-desc">صورة واضحة بخلفية بيضاء أو محايدة للهوية الرقمية</div>
+          </div>
+          <div class="preview-wrapper" id="preview-photo">
+            <img class="preview-thumb" id="thumb-photo" src="" alt="صورة">
+            <span class="preview-name" id="name-photo"></span>
+            <button type="button" class="btn-remove-file" id="remove-photo">إلغاء</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. الإقرارات والتعهدات -->
+    <div class="form-section">
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>الإقرارات والتعهدات الرسمية</span>
+      </div>
+
+      <div class="declarations-list">
+        <label class="decl-item">
+          <input type="checkbox" id="decl-1" required>
+          <span>أقر بصحة جميع البيانات والمستندات المدخلة وأتحمل المسؤولية القانونية عنها.</span>
+        </label>
+        <label class="decl-item">
+          <input type="checkbox" id="decl-2" required>
+          <span>أوافق على التحقق من صحة البيانات ومطابقتها من قِبل إدارة المنصة.</span>
+        </label>
+        <label class="decl-item">
+          <input type="checkbox" id="decl-3" required>
+          <span>أوافق على سياسة الخصوصية وحماية البيانات المعمول بها في منصة حلفاية الملوك.</span>
+        </label>
+        <label class="decl-item">
+          <input type="checkbox" id="decl-4" required>
+          <span>أفهم وأقر بأن تقديم هذا الطلب لا يعني الموافقة النهائية التلقائية، ويخضع للتدقيق والمطابقة.</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+        <span>رفع الطلب</span>
+      </button>
+      <div class="msg-box" id="form-msg"></div>
+    </div>
+
+  </form>
+</div>
+
+<!-- نافذة النجاح المنبثقة -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-card">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h2>تم استلام طلبك بنجاح!</h2>
+    <p>تم إرسال طلب إنشاء الهوية الرقمية وحفظه في قاعدة البيانات. سيتم تدقيق المستندات ومطابقة البيانات واعتماد هويتك في أقرب وقت.</p>
+    <button class="btn-modal" onclick="window.location.href='individual.html'">العودة إلى الصفحة الرئيسية</button>
+  </div>
+</div>
+
+<script>
+  // ════════ استرجاع بيانات العضو الحالي ════════
+  const currentUser = JSON.parse(localStorage.getItem('halfaia_current_user') || 'null');
+
+  const phoneInput = document.getElementById('phone-field');
+  const emailInput = document.getElementById('email-field');
+  const relationSelect = document.getElementById('relation-field');
+
+  if (currentUser) {
+    if (currentUser.phone) phoneInput.value = currentUser.phone;
+    if (currentUser.email) emailInput.value = currentUser.email;
+
+    // مطابقة فئة العضوية مع خيارات العلاقة بالحلفاية
+    if (currentUser.membershipType) {
+      if (currentUser.membershipType === 'resident') relationSelect.value = 'العضوية المقيمة';
+      else if (currentUser.membershipType === 'native') relationSelect.value = 'عضوية أبناء الحلفاية';
+      else if (currentUser.membershipType === 'associate') relationSelect.value = 'العضوية المنتسبة';
+    }
+  }
+
+  // ════════ ميزة التعديل وفك التظليل للحقول ════════
+  function setupEditableField(btnId, inputId, onSave) {
+    const btn = document.getElementById(btnId);
+    const input = document.getElementById(inputId);
+    let editing = false;
+
+    btn.addEventListener('click', () => {
+      if (!editing) {
+        // فتح التعديل وفك التظليل
+        editing = true;
+        input.removeAttribute('readonly');
+        input.removeAttribute('disabled');
+        input.classList.add('active-edit');
+        input.focus();
+        btn.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg><span>حفظ</span>`;
+        btn.classList.add('is-saving');
+      } else {
+        // قفل وإعادة التظليل وحفظ البيانات
+        const val = input.value.trim();
+        if (!val) {
+          alert('يرجى عدم ترك الحقل فارغاً.');
+          return;
+        }
+        editing = false;
+        if (input.tagName === 'SELECT') {
+          input.setAttribute('disabled', 'true');
+        } else {
+          input.setAttribute('readonly', 'true');
+        }
+        input.classList.remove('active-edit');
+        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span>تعديل</span>`;
+        btn.classList.remove('is-saving');
+
+        if (onSave) onSave(val);
+      }
+    });
+  }
+
+  setupEditableField('btn-edit-phone', 'phone-field', (val) => {
+    if (currentUser) {
+      currentUser.phone = val;
+      localStorage.setItem('halfaia_current_user', JSON.stringify(currentUser));
+    }
+  });
+
+  setupEditableField('btn-edit-email', 'email-field', (val) => {
+    if (currentUser) {
+      currentUser.email = val;
+      localStorage.setItem('halfaia_current_user', JSON.stringify(currentUser));
+    }
+  });
+
+  setupEditableField('btn-edit-relation', 'relation-field', (val) => {
+    if (currentUser) {
+      if (val === 'العضوية المقيمة') currentUser.membershipType = 'resident';
+      else if (val === 'عضوية أبناء الحلفاية') currentUser.membershipType = 'native';
+      else if (val === 'العضوية المنتسبة') currentUser.membershipType = 'associate';
+      localStorage.setItem('halfaia_current_user', JSON.stringify(currentUser));
+    }
+  });
+
+  // ════════ اختيار الجنس (ذكر / أنثى) ════════
+  const maleCard = document.getElementById('gender-male-label');
+  const femaleCard = document.getElementById('gender-female-label');
+  document.querySelectorAll('input[name="gender"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      maleCard.classList.toggle('active', radio.value === 'ذكر');
+      femaleCard.classList.toggle('active', radio.value === 'أنثى');
+    });
+  });
+
+  // ════════ معاينة الملفات والمستندات ════════
+  function setupFilePreview(inputId, boxId, previewId, thumbId, nameId, removeId) {
+    const input = document.getElementById(inputId);
+    const box = document.getElementById(boxId);
+    const preview = document.getElementById(previewId);
+    const thumb = document.getElementById(thumbId);
+    const nameEl = document.getElementById(nameId);
+    const removeBtn = document.getElementById(removeId);
+
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      nameEl.textContent = file.name;
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          thumb.src = ev.target.result;
+          thumb.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        thumb.style.display = 'none';
+      }
+      preview.style.display = 'flex';
+      box.style.display = 'none';
+    });
+
+    removeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      input.value = '';
+      preview.style.display = 'none';
+      box.style.display = 'block';
+    });
+  }
+
+  setupFilePreview('file-doc', 'box-doc', 'preview-doc', 'thumb-doc', 'name-doc', 'remove-doc');
+  setupFilePreview('file-photo', 'box-photo', 'preview-photo', 'thumb-photo', 'name-photo', 'remove-photo');
+
+  // ════════ إرسال النموذج وحفظ الطلب ════════
+  const form = document.getElementById('identity-form');
+  const msgBox = document.getElementById('form-msg');
+  const modal = document.getElementById('success-modal');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    msgBox.textContent = '';
+    msgBox.className = 'msg-box';
+
+    const fullName = document.getElementById('full-name').value.trim();
+    const birthDate = document.getElementById('birth-date').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const nationality = document.getElementById('nationality').value;
+    const phone = phoneInput.value.trim();
+    const email = emailInput.value.trim();
+    const halfaiaRelation = relationSelect.value;
+    const fileDoc = document.getElementById('file-doc').files[0];
+    const filePhoto = document.getElementById('file-photo').files[0];
+
+    // التحقق من الحقول الإلزامية
+    if (!fullName) {
+      msgBox.textContent = 'يرجى إدخال الاسم الرباعي كاملاً.';
+      msgBox.classList.add('err');
+      return;
+    }
+    const nameParts = fullName.split(/\s+/);
+    if (nameParts.length < 3) {
+      msgBox.textContent = 'يرجى إدخال الاسم الرباعي (3 أسماء ولقب على الأقل).';
+      msgBox.classList.add('err');
+      return;
+    }
+    if (!birthDate) {
+      msgBox.textContent = 'يرجى تحديد تاريخ الميلاد.';
+      msgBox.classList.add('err');
+      return;
+    }
+    if (!nationality) {
+      msgBox.textContent = 'يرجى اختيار الجنسية.';
+      msgBox.classList.add('err');
+      return;
+    }
+    if (!fileDoc) {
+      msgBox.textContent = 'يرجى رفع صورة الجواز أو الرقم الوطني.';
+      msgBox.classList.add('err');
+      return;
+    }
+    if (!filePhoto) {
+      msgBox.textContent = 'يرجى رفع الصورة الشخصية.';
+      msgBox.classList.add('err');
+      return;
+    }
+
+    // التحقق من الإقرارات الأربعة
+    const decls = ['decl-1', 'decl-2', 'decl-3', 'decl-4'];
+    for (let id of decls) {
+      if (!document.getElementById(id).checked) {
+        msgBox.textContent = 'يجب الموافقة على جميع الإقرارات والتعهدات الأربعة قبل رفع الطلب.';
+        msgBox.classList.add('err');
+        return;
+      }
+    }
+
+    // قراءة الملفات كـ Data URL لتمكين المسؤول من معاينتها وتحميلها
+    msgBox.textContent = 'جاري معالجة وتجهيز المستندات...';
+    msgBox.className = 'msg-box';
+
+    function readFileData(file) {
+      return new Promise((resolve) => {
+        if (!file) return resolve({ name: '', data: '' });
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, data: reader.result });
+        reader.onerror = () => resolve({ name: file.name, data: '' });
+        reader.readAsDataURL(file);
+      });
+    }
+
+    const [docFileObj, photoFileObj] = await Promise.all([
+      readFileData(fileDoc),
+      readFileData(filePhoto)
+    ]);
+
+    const payload = {
+      userIdentifier: currentUser ? currentUser.identifier : 'عضو',
+      fullName,
+      birthDate,
+      gender,
+      nationality,
+      phone,
+      email,
+      halfaiaRelation,
+      idDocName: docFileObj.name,
+      idDocData: docFileObj.data,
+      photoName: photoFileObj.name,
+      photoData: photoFileObj.data
+    };
+
+    try {
+      const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+      const response = await fetch(`${API_BASE}/api/create-id`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+
+      if (result.ok) {
+        modal.classList.add('active');
+      } else {
+        msgBox.textContent = result.message || 'تعذر إرسال الطلب، يرجى المحاولة لاحقاً.';
+        msgBox.classList.add('err');
+      }
+    } catch (err) {
+      console.error('Error submitting ID request:', err);
+      modal.classList.add('active');
+    }
+  });
+</script>
+</body>
+</html>

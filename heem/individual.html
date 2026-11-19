@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | الصفحة الرئيسية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="qrcode.min.js"></script>
+<script>if(typeof qrcode==='undefined'){document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"><\/script>');}</script>
+<style>
+  :root {
+    --gray-base:#808080; --navy:#1E3A5F; --navy-dark:#152C48; --navy-light:#2A4E7A;
+    --gold-beige:#E8CFA8; --gold-hover:#D4B88E;
+    --bg-page:#F0F2F5; --bg-card:#FFFFFF; --line:rgba(30,58,95,0.1);
+    --shadow-sm:0 1px 3px rgba(30,58,95,0.06),0 1px 2px rgba(30,58,95,0.04);
+    --shadow-md:0 4px 14px rgba(30,58,95,0.08),0 2px 6px rgba(30,58,95,0.04);
+    --shadow-lg:0 14px 34px rgba(30,58,95,0.14),0 4px 10px rgba(30,58,95,0.06);
+    --shadow-gold:0 4px 16px rgba(232,207,168,0.3);
+    --error:#C0392B; --radius:14px; --radius-sm:10px;
+    --transition:all .3s cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;color:var(--navy);background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--gold-hover);outline-offset:2px}
+
+  /* شريط الأخبار */
+  .news-ticker{width:100%;background:linear-gradient(135deg,var(--navy-dark),var(--navy) 50%,var(--navy-light));color:rgba(255,255,255,.92);overflow:hidden;white-space:nowrap;position:relative;height:44px;display:flex;align-items:center;border-bottom:2px solid var(--gold-beige);flex-shrink:0}
+  .news-ticker-label{background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));color:var(--navy-dark);font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:.8rem;padding:0 20px;height:100%;display:flex;align-items:center;gap:7px;flex-shrink:0;z-index:2}
+  .news-ticker-label svg{width:15px;height:15px;fill:none;stroke:var(--navy-dark);stroke-width:2.5;animation:ring 2s ease-in-out infinite}
+  @keyframes ring{0%,100%{transform:rotate(0)}15%{transform:rotate(12deg)}30%{transform:rotate(-10deg)}45%{transform:rotate(6deg)}60%{transform:rotate(0)}}
+  .news-ticker-track{display:inline-block;animation:scroll-rtl 40s linear infinite;padding-right:30px;font-size:.88rem;font-weight:500}
+  .news-ticker-track span{padding:0 60px}
+  .news-ticker-track span::before{content:'✦';margin-left:60px;color:var(--gold-beige);font-size:.55rem;vertical-align:middle;opacity:.7}
+  @keyframes scroll-rtl{0%{transform:translateX(80%)}100%{transform:translateX(-120%)}}
+  .news-ticker:hover .news-ticker-track{animation-play-state:paused}
+
+  /* الرأس */
+  .main-header{background:var(--bg-card);padding:9px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:var(--shadow-md);position:relative;z-index:10}
+  .main-header::after{content:'';position:absolute;bottom:0;right:0;left:0;height:3px;background:linear-gradient(to left,var(--navy),var(--gold-beige),var(--navy));opacity:.4}
+  .user-section{display:flex;align-items:center;gap:14px}
+  .avatar-wrapper{position:relative;width:50px;height:50px;flex-shrink:0}
+  .avatar-ring{position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--gold-beige) 0deg,var(--navy-light) 120deg,var(--gold-beige) 240deg,var(--navy-light) 360deg);animation:avatar-spin 6s linear infinite}
+  @keyframes avatar-spin{to{transform:rotate(360deg)}}
+  .avatar-ring-inner{position:absolute;inset:-1px;border-radius:50%;background:var(--bg-card);z-index:1}
+  .avatar-display{width:50px;height:50px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,rgba(30,58,95,.06),rgba(232,207,168,.12));display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+  .avatar-display img{width:100%;height:100%;object-fit:cover;display:block}
+  .avatar-display svg{width:24px;height:24px;stroke:var(--gray-base);fill:none;stroke-width:1.5;opacity:.7}
+  .avatar-upload-btn{position:absolute;bottom:-3px;left:-3px;width:20px;height:20px;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));border:2px solid var(--bg-card);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+  .avatar-upload-btn:hover{transform:scale(1.15);box-shadow:var(--shadow-gold)}
+  .avatar-upload-btn svg{width:9px;height:9px;stroke:var(--navy-dark);fill:none;stroke-width:2.5}
+  .avatar-upload-btn input{display:none}
+  .user-info{display:flex;flex-direction:column;gap:1px}
+  .user-greeting{font-size:.7rem;font-weight:500;color:var(--gray-base)}
+  .user-name{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy-dark);line-height:1.3}
+  .user-email{font-size:.75rem;color:var(--gray-base);direction:ltr;text-align:right}
+  .membership-badge{display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:2px 10px;border-radius:20px;background:linear-gradient(135deg,rgba(30,58,95,.06),rgba(232,207,168,.15));border:1px solid rgba(232,207,168,.3);font-size:.72rem;font-weight:600;width:fit-content}
+  .membership-badge svg{width:11px;height:11px;fill:var(--gold-beige);stroke:var(--navy);stroke-width:.8}
+
+  .header-actions{display:flex;align-items:center;gap:10px}
+  .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 16px;border-radius:var(--radius-sm);border:none;font-weight:600;font-size:.8rem;cursor:pointer;transition:var(--transition);white-space:nowrap;text-decoration:none}
+  .action-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .btn-dashboard{background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));color:var(--navy-dark);box-shadow:0 4px 14px rgba(232,207,168,.4);font-weight:700;display:none}
+  .btn-dashboard:hover{box-shadow:0 6px 20px rgba(232,207,168,.6);transform:translateY(-2px);background:linear-gradient(135deg,#ECCF9E,#CCA66B)}
+  .btn-dashboard svg{stroke:var(--navy-dark)}
+  .btn-settings{background:var(--bg-card);color:var(--navy);box-shadow:var(--shadow-sm);border:1px solid var(--line)}
+  .btn-settings:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+  .btn-settings:hover svg{animation:gear-spin 1.5s ease-in-out}
+  @keyframes gear-spin{to{transform:rotate(180deg)}}
+  .btn-contact{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--gold-beige);box-shadow:0 4px 14px rgba(30,58,95,.2)}
+  .btn-contact:hover{box-shadow:0 6px 20px rgba(30,58,95,.3);transform:translateY(-2px)}
+  .btn-contact svg{stroke:var(--gold-beige)}
+  .btn-logout{background:var(--bg-card);color:var(--error);box-shadow:var(--shadow-sm);border:1px solid rgba(192,57,43,.15)}
+  .btn-logout svg{stroke:var(--error)}
+  .btn-logout:hover{box-shadow:0 4px 14px rgba(192,57,43,.12);transform:translateY(-1px)}
+
+  /* المحتوى */
+  .main-content{flex:1;padding:clamp(18px,3vw,32px) clamp(16px,5vw,56px) 56px;width:100%;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+
+  .welcome-card{background:linear-gradient(120deg,var(--navy-dark),var(--navy) 60%,var(--navy-light));border-radius:var(--radius);padding:20px clamp(20px,4vw,36px);box-shadow:var(--shadow-md);display:flex;align-items:center;gap:26px;position:relative;overflow:hidden;color:#fff}
+  .welcome-card::after{content:'';position:absolute;left:-60px;top:-60px;width:240px;height:240px;border:1px solid rgba(232,207,168,.25);border-radius:50%;box-shadow:0 0 0 36px rgba(232,207,168,.05),0 0 0 72px rgba(232,207,168,.04)}
+  .welcome-card .logo-mark{width:44px;height:44px;flex-shrink:0;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+  .welcome-card h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.25rem;font-weight:700;color:var(--gold-beige);margin-bottom:4px;line-height:1.5}
+  .welcome-card p{color:rgba(255,255,255,.8);line-height:1.9;font-size:.95rem;max-width:560px}
+
+  /* شريط الأزرار تحت الرأس مباشرة */
+  .nav-bar{background:linear-gradient(135deg,var(--navy-dark),var(--navy) 55%,var(--navy-light));border-bottom:3px solid var(--gold-beige);box-shadow:var(--shadow-md);position:relative;z-index:9;padding:0 clamp(12px,4vw,48px)}
+  .nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:stretch;justify-content:center;gap:4px;flex-wrap:wrap}
+  .nav-btn{display:flex;align-items:center;gap:9px;padding:14px 20px;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-3px;color:rgba(255,255,255,.88);font-family:"Noto Kufi Arabic",sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:var(--transition);white-space:nowrap}
+  .nav-btn svg{width:20px;height:20px;stroke:var(--gold-beige);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .nav-btn:hover,.nav-dd.open>.nav-btn{background:rgba(232,207,168,.12);color:var(--gold-beige);border-bottom-color:var(--gold-beige)}
+  .nav-btn .caret{width:14px;height:14px;stroke-width:2.5;transition:transform .3s ease}
+  .nav-dd.open .caret{transform:rotate(180deg)}
+  .nav-dd{position:relative;display:flex}
+  .nav-dd.open>.nav-btn{background:rgba(232,207,168,.14);color:var(--gold-beige);border-radius:10px 10px 0 0}
+  .dd-menu{position:absolute;top:calc(100% + 3px);right:0;min-width:240px;background:var(--bg-card);border-radius:0 0 var(--radius) var(--radius);border-top:3px solid var(--gold-beige);box-shadow:var(--shadow-lg);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .25s ease,transform .25s ease,visibility .25s;z-index:20}
+  .nav-dd.open .dd-menu{opacity:1;visibility:visible;transform:none}
+  .dd-item{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border:none;background:none;border-radius:var(--radius-sm);color:var(--navy-dark);font-family:"Noto Sans Arabic",sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;text-align:right;transition:var(--transition)}
+  .dd-item svg{width:20px;height:20px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .dd-item:hover{background:var(--navy);color:var(--gold-beige)}
+  .dd-item:hover svg{stroke:var(--gold-beige)}
+
+  /* ══════ حالات زر هويتك (مظلل / معتمد) ══════ */
+  .dd-item.disabled-id {
+    opacity: 0.55;
+    background: rgba(0, 0, 0, 0.03) !important;
+    cursor: not-allowed !important;
+    filter: grayscale(0.5);
+  }
+  .dd-item.disabled-id:hover {
+    background: rgba(0, 0, 0, 0.03) !important;
+    color: var(--navy) !important;
+    transform: none !important;
+  }
+  .dd-item.disabled-id svg {
+    stroke: var(--gray-base) !important;
+  }
+  .id-status-pill {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-right: auto;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .id-status-pill.none {
+    background: rgba(128, 128, 128, 0.12);
+    color: #666;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .id-status-pill.pending {
+    background: rgba(217, 119, 54, 0.15);
+    color: #D97736;
+    border: 1px solid rgba(217, 119, 54, 0.3);
+  }
+  .id-status-pill.rejected {
+    background: rgba(192, 57, 43, 0.15);
+    color: #C0392B;
+    border: 1px solid rgba(192, 57, 43, 0.3);
+  }
+  .id-status-pill.approved {
+    background: rgba(30, 126, 52, 0.15);
+    color: #1E7E34;
+    border: 1px solid rgba(30, 126, 52, 0.35);
+    animation: pulse-badge 2s infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .dd-item.approved-id {
+    background: linear-gradient(135deg, rgba(232, 207, 168, 0.2), rgba(30, 58, 95, 0.04));
+    border: 1px solid rgba(232, 207, 168, 0.6);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .dd-item.approved-id:hover {
+    background: linear-gradient(135deg, var(--navy), var(--navy-dark)) !important;
+    color: var(--gold-beige) !important;
+  }
+
+  /* ══════ نافذة بطاقة الهوية الرقمية المنبثقة ثلاثية الأبعاد ══════ */
+  .id-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 31, 51, 0.82);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+    animation: fadeInModal 0.3s ease;
+  }
+  .id-modal-overlay.active { display: flex; }
+  @keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .id-modal-box {
+    background: radial-gradient(circle at 50% 15%, #183152 0%, #0C1625 100%);
+    border-radius: 24px;
+    border: 1.5px solid rgba(232, 207, 168, 0.35);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 35px rgba(232, 207, 168, 0.12);
+    max-width: 620px;
+    width: 100%;
+    padding: 24px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    color: #fff;
+  }
+  .modal-close-x {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .modal-close-x:hover {
+    background: var(--error);
+    border-color: var(--error);
+    transform: rotate(90deg);
+  }
+  .id-modal-header {
+    text-align: center;
+    width: 100%;
+  }
+  .id-modal-header h2 {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 1.3rem;
+    color: var(--gold-beige);
+    margin-bottom: 2px;
+  }
+  .id-modal-header p {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* مسرح البطاقة 3D */
+  .modal-card-scene {
+    width: 100%;
+    max-width: 520px;
+    height: 325px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+  .modal-card-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 18px;
+  }
+  .modal-card-3d.flipped {
+    transform: rotateY(180deg);
+  }
+  .mcard-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 18px;
+    border: 1.5px solid rgba(232, 207, 168, 0.35);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: linear-gradient(135deg, #12243B 0%, #1B3556 50%, #102136 100%);
+  }
+  .mcard-face::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(232, 207, 168, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(232, 207, 168, 0.06) 0%, transparent 40%),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 0, transparent 16px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .mcard-face.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+  .mcard-face.back {
+    transform: rotateY(180deg);
+    padding: 14px 20px 16px;
+  }
+
+  /* مكونات البطاقة الداخلية */
+  .mcard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(232, 207, 168, 0.15);
+    padding-bottom: 8px;
+  }
+  .mcard-header .mcountry {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.7);
+    display: block;
+  }
+  .mcard-header .mplatform {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-beige);
+  }
+  .mcard-emblem {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--gold-beige), var(--gold-hover));
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    box-shadow: 0 0 10px rgba(232, 207, 168, 0.4);
+  }
+
+  .mcard-body-front {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    margin: auto 0;
+  }
+  .mphoto-frame {
+    width: 90px;
+    height: 108px;
+    border-radius: 10px;
+    border: 2px solid var(--gold-beige);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    overflow: hidden;
+    background: #0E1A29;
+    flex-shrink: 0;
+  }
+  .mphoto-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .minfo-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .minfo-name-label {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.65);
+  }
+  .minfo-full-name {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .minfo-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.9);
+  }
+  .minfo-row .mlabel {
+    color: var(--gold-beige);
+    font-weight: 600;
+    font-size: 0.74rem;
+  }
+  .minfo-row .mval {
+    font-weight: 500;
+    direction: ltr;
+    text-align: right;
+  }
+
+  .mcard-footer-front {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(232, 207, 168, 0.15);
+    padding-top: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .mid-serial {
+    font-family: monospace;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--gold-beige);
+  }
+  .mid-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(30, 126, 52, 0.2);
+    border: 1px solid rgba(40, 167, 69, 0.4);
+    color: #4cd964;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  /* الوجه الخلفي */
+  .mmag-stripe {
+    width: calc(100% + 40px);
+    margin: -14px -20px 10px;
+    height: 32px;
+    background: linear-gradient(90deg, #070D16 0%, #151F2E 50%, #070D16 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .mcard-body-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+  .mqr-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px solid var(--gold-beige);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  #modal-card-qrcode {
+    width: 105px;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #modal-card-qrcode canvas, #modal-card-qrcode img {
+    width: 105px !important;
+    height: 105px !important;
+  }
+  .mqr-note {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  .mback-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mback-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+    border: 1px solid rgba(232, 207, 168, 0.1);
+  }
+  .mback-item .mlbl {
+    font-size: 0.74rem;
+    color: var(--gold-beige);
+    font-weight: 600;
+  }
+  .mback-item .mv {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .mcard-footer-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(232, 207, 168, 0.15);
+    padding-top: 6px;
+    position: relative;
+    z-index: 2;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* أزرار النافذة المنبثقة */
+  .modal-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-modal-act {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    font-family: inherit;
+    text-decoration: none;
+  }
+  .btn-modal-flip {
+    background: linear-gradient(135deg, var(--gold-beige), var(--gold-hover));
+    color: var(--navy-dark);
+  }
+  .btn-modal-flip:hover {
+    box-shadow: 0 4px 16px rgba(232, 207, 168, 0.4);
+    transform: translateY(-2px);
+  }
+  .btn-modal-full {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .btn-modal-full:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* بطاقة الترحيب مصغّرة، وتحتها مساحة حرة للاستخدام لاحقاً */
+  #free-area{min-height:200px}
+
+  /* التجاوب */
+  @media (max-width:860px){
+    .main-header{flex-direction:column;align-items:stretch;gap:10px;padding:10px 16px}
+    .user-section{justify-content:center}
+    .header-actions{justify-content:center;flex-wrap:wrap}
+    .action-btn{flex:1;min-width:100px;padding:8px 10px}
+    .nav-inner{justify-content:flex-start;gap:0}
+    .nav-btn{padding:12px 14px;font-size:.82rem}
+    .nav-dd{width:100%;flex-direction:column}
+    .dd-menu{position:static;display:none;opacity:1;visibility:visible;transform:none;box-shadow:none;border-top:none;background:rgba(255,255,255,.06);border-radius:0 0 10px 10px;min-width:0}
+    .nav-dd.open .dd-menu{display:block}
+    .dd-item{color:#fff}.dd-item svg{stroke:var(--gold-beige)}
+  }
+  @media (max-width:480px){
+    .welcome-card{flex-direction:column;text-align:center;padding:18px}
+    .welcome-card h3{font-size:1.1rem}
+    .nav-btn span{font-size:.78rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .news-ticker-track,.avatar-ring,.news-ticker-label svg{animation:none}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- شريط الأخبار المتحرك -->
+<div class="news-ticker">
+  <div class="news-ticker-label">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+    </svg>
+    أخبار
+  </div>
+  <div class="news-ticker-track" id="ticker-track">
+    <span>مرحباً بكم في منصة أبناء حلفاية الملوك — المنصة الرقمية لأبناء الحلفاية في كل مكان</span>
+    <span>يمكنكم الآن التسجيل والمشاركة في فعاليات وأنشطة المجتمع</span>
+    <span>تابعونا للحصول على آخر الأخبار والمستجدات المهمة</span>
+  </div>
+</div>
+
+<!-- شريط الرأس -->
+<header class="main-header">
+  <div class="user-section">
+    <div class="avatar-wrapper">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-inner"></div>
+      <div class="avatar-display" id="avatar-display">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <label class="avatar-upload-btn" title="تغيير الصورة الشخصية">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        <input type="file" id="avatar-input" accept="image/*">
+      </label>
+    </div>
+    <div class="user-info">
+      <span class="user-greeting">مرحباً بعودتك</span>
+      <h2 class="user-name" id="display-name">عضو جديد</h2>
+      <span class="user-email" id="display-email">منصة حلفاية الملوك</span>
+      <div class="membership-badge" id="display-membership">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>عضو</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <!-- زر لوحة التحكم: يظهر فقط لمالك الموقع / المشرف العام -->
+    <a href="admin.html" class="action-btn btn-dashboard" id="btn-dashboard">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+      <span>لوحة التحكم</span>
+    </a>
+
+    <button class="action-btn btn-settings" id="btn-settings">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      <span>الإعدادات</span>
+    </button>
+    <button class="action-btn btn-contact" id="btn-contact">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span>تواصل معنا</span>
+    </button>
+    <button class="action-btn btn-logout" id="btn-logout">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        <polyline points="16 17 21 12 16 7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+      <span>خروج</span>
+    </button>
+  </div>
+</header>
+
+<!-- شريط الأزرار -->
+<nav class="nav-bar" aria-label="خدمات المنصة">
+  <div class="nav-inner">
+    <div class="nav-dd" id="identity-dd">
+      <button class="nav-btn" id="identity-toggle" aria-expanded="false" aria-controls="identity-menu">
+        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16c.6-1.6 2-2.4 3.5-2.4S11.400 14.400 12 16"/><line x1="14.500" y1="10" x2="19" y2="10"/><line x1="14.500" y1="14" x2="18" y2="14"/></svg>
+        <span>الهوية الرقمية</span>
+        <svg class="caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-menu" id="identity-menu">
+        <button class="dd-item" data-service="إنشاء هوية رقمية">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>إنشاء هوية رقمية</span>
+        </button>
+        <button class="dd-item disabled-id" id="btn-my-identity" data-service="هويتك">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2"/><path d="M7 16c0-1.5 1-2.5 2-2.5s2 1 2 2.5"/></svg>
+          <span>هويتك</span>
+          <span class="id-status-pill none" id="id-status-pill">غير مفعلة 🔒</span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-dd" id="health-dd">
+      <button class="nav-btn" id="health-toggle" aria-expanded="false" aria-controls="health-menu">
+        <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-5h6v5"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="10" y1="10" x2="14" y2="10"/></svg>
+        <span>المراكز الصحية</span>
+        <svg class="caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-menu" id="health-menu">
+        <button class="dd-item" data-service="حجز المواعيد في المراكز الصحية">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="1.5"/></svg>
+          <span>حجز المواعيد في المراكز الصحية</span>
+        </button>
+        <button class="dd-item" id="btn-med-file" data-service="فتح ملف طبي إلكتروني موحد">
+          <svg id="icon-med-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          <span id="txt-med-file">فتح ملف طبي إلكتروني موحد</span>
+        </button>
+        <button class="dd-item" data-service="استلام نتائج المختبر والأشعة">
+          <svg viewBox="0 0 24 24"><path d="M6 2v6a6 6 0 0 0 12 0V2"/><path d="M4 2h16"/><path d="M9 13v3"/><path d="M15 13v3"/></svg>
+          <span>استلام نتائج المختبر والأشعة</span>
+        </button>
+        <button class="dd-item" data-service="طلب استشارة طبية عن بُعد">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M10 8h4"/><path d="M12 6v4"/></svg>
+          <span>طلب استشارة طبية عن بُعد</span>
+        </button>
+      </div>
+    </div>
+    <button class="nav-btn" data-service="سوق الحلفاية">
+      <svg viewBox="0 0 24 24"><path d="M3 9l1.500-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-4h4v4"/></svg>
+      <span>سوق الحلفاية</span>
+    </button>
+    <button class="nav-btn" data-service="صحيفة الحلفاية">
+      <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M19 9h1.500a.5.5 0 0 1 .5.5V18a2 2 0 0 1-2 2"/><line x1="8" y1="8" x2="15" y2="8"/><line x1="8" y1="12" x2="15" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+      <span>صحيفة الحلفاية</span>
+    </button>
+
+    <div class="nav-dd" id="special">
+      <button class="nav-btn" id="special-toggle" aria-expanded="false" aria-controls="special-menu">
+        <svg viewBox="0 0 24 24"><path d="M20.800 4.600a5.500 5.500 0 0 0-7.800 0L12 5.700l-1-1.100a5.500 5.500 0 0 0-7.800 7.800l1 1.100L12 21.200l7.800-7.700 1-1.100a5.500 5.500 0 0 0 0-7.800z"/></svg>
+        <span>خدمات خاصة للأهالي</span>
+        <svg class="caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-menu" id="special-menu">
+        <button class="dd-item" data-service="المناسبات الاجتماعية">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          المناسبات الاجتماعية
+        </button>
+        <button class="dd-item" data-service="قسم التبرعات">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.400-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.600-9 9-9 9z"/><path d="M12 9v6M9 12h6"/></svg>
+          قسم التبرعات
+        </button>
+        <button class="dd-item" data-service="المفقودات والموجودات">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.500" y2="16.500"/></svg>
+          المفقودات والموجودات
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- المحتوى الرئيسي -->
+<main class="main-content">
+
+  <div class="welcome-card">
+    <div class="logo-mark"></div>
+    <div>
+      <h3>مرحباً بك في منصة أبناء حلفاية الملوك</h3>
+      <p>هذه صفحتك الرئيسية، يمكنك من هنا إدارة حسابك والمشاركة في فعاليات المجتمع والتواصل مع أبناء الحلفاية في كل مكان.</p>
+    </div>
+  </div>
+
+  <!-- مساحة حرة للاستخدام لاحقاً -->
+  <div id="free-area"></div>
+
+</main>
+
+<!-- ══════════ نافذة بطاقة الهوية الرقمية الذكية (3D Smart Card Modal) ══════════ -->
+<div class="id-modal-overlay" id="id-modal-overlay" onclick="handleModalOverlayClick(event)">
+  <div class="id-modal-box">
+    <button class="modal-close-x" onclick="closeIdModal()" title="إغلاق">&times;</button>
+    
+    <div class="id-modal-header">
+      <h2>الهوية الرقمية المعتمدة</h2>
+      <p>منصة أبناء حلفاية الملوك • بطاقة العضوية والتحقق الذكية</p>
+    </div>
+
+    <!-- مسرح البطاقة ثلاثي الأبعاد -->
+    <div class="modal-card-scene" onclick="flipModalCard()" title="انقر لقلب البطاقة">
+      <div class="modal-card-3d" id="modal-card-3d">
+        <!-- 1. الوجه الأمامي (Front Face) -->
+        <div class="mcard-face front">
+          <div class="mcard-header">
+            <div>
+              <span class="mcountry">جمهورية السودان • ولاية الخرطوم</span>
+              <span class="mplatform">منصة أبناء حلفاية الملوك</span>
+            </div>
+            <div class="mcard-emblem"></div>
+          </div>
+
+          <div class="mcard-body-front">
+            <div class="mphoto-frame" id="mcard-photo-frame">
+              <img src="" alt="صورة العضو" id="mcard-photo-img" style="display:none">
+              <div id="mcard-photo-fallback" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--gold-beige)">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+            </div>
+
+            <div class="minfo-box">
+              <span class="minfo-name-label">الاسم الرباعي:</span>
+              <h3 class="minfo-full-name" id="mcard-full-name">-</h3>
+
+              <div class="minfo-row" style="margin-top:4px">
+                <span class="mlabel">الهاتف:</span>
+                <span class="mval" id="mcard-phone">-</span>
+              </div>
+
+              <div class="minfo-row">
+                <span class="mlabel">البريد:</span>
+                <span class="mval" id="mcard-email">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcard-footer-front">
+            <span class="mid-serial" id="mcard-serial">HAL-2026-00000</span>
+            <span class="mid-verified">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              معتمدة رسمياً
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. الوجه الخلفي (Back Face) -->
+        <div class="mcard-face back">
+          <div class="mmag-stripe"></div>
+
+          <div class="mcard-body-back">
+            <div class="mqr-wrapper" title="امسح الرمز بكاميرا الهاتف">
+              <div id="modal-card-qrcode"></div>
+              <span class="mqr-note">مسح للبيانات</span>
+            </div>
+
+            <div class="mback-details">
+              <div class="mback-item">
+                <span class="mlbl">الجنس:</span>
+                <span class="mv" id="mcard-gender">-</span>
+              </div>
+              <div class="mback-item">
+                <span class="mlbl">الجنسية:</span>
+                <span class="mv" id="mcard-nationality">-</span>
+              </div>
+              <div class="mback-item">
+                <span class="mlbl">العلاقة بالحلفاية:</span>
+                <span class="mv" id="mcard-relation">-</span>
+              </div>
+              <div class="mback-item">
+                <span class="mlbl">تاريخ الميلاد:</span>
+                <span class="mv" id="mcard-birthdate">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcard-footer-back">
+            <span>ختم الاعتماد الرقمي • أمانة شؤون العضوية</span>
+            <span style="direction:ltr;font-family:monospace">VERIFIED-SECURE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- أزرار الإجراءات -->
+    <div class="modal-actions-bar">
+      <button class="btn-modal-act btn-modal-flip" onclick="flipModalCard()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+        <span id="mcard-flip-btn-text">⟲ قلب البطاقة (الوجه الخلفي)</span>
+      </button>
+
+      <a href="my-id.html" id="btn-modal-open-full" class="btn-modal-act btn-modal-full" title="فتح صفحة الهوية بالحجم الكامل للطباعة والحفظ">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>فتح كصفحة مستقلة / طباعة PDF</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ════════ تحميل بيانات المستخدم ════════
+  const currentUser = JSON.parse(localStorage.getItem('halfaia_current_user') || 'null');
+
+  if (currentUser) {
+    document.getElementById('display-name').textContent = currentUser.identifier;
+    if (currentUser.email) {
+      document.getElementById('display-email').textContent = currentUser.email;
+    }
+
+    const membershipNames = {
+      resident: 'العضوية المقيمة',
+      native: 'عضوية أبناء الحلفاية',
+      associate: 'العضوية المنتسبة'
+    };
+    if (currentUser.membershipType && membershipNames[currentUser.membershipType]) {
+      document.querySelector('#display-membership span').textContent = membershipNames[currentUser.membershipType];
+    }
+
+    const savedAvatar = localStorage.getItem('halfaia_avatar_' + currentUser.identifier);
+    if (savedAvatar) showAvatar(savedAvatar);
+
+    // التحقق من صلاحية المسؤول / مالك الموقع لإظهار زر لوحة التحكم
+    const isAdmin = currentUser.role === 'admin' || 
+                    currentUser.identifier.toLowerCase() === 'admin' || 
+                    localStorage.getItem('halfaia_is_admin') === 'true';
+
+    const dashBtn = document.getElementById('btn-dashboard');
+    if (dashBtn && isAdmin) {
+      dashBtn.style.display = 'inline-flex';
+    }
+  }
+
+  // تحميل شريط الأخبار المخصص من لوحة تحكم المالك إن وجد
+  const customNews = localStorage.getItem('halfaia_news_ticker');
+  if (customNews) {
+    const track = document.getElementById('ticker-track');
+    if (track) {
+      const items = customNews.split('\n').filter(s => s.trim());
+      if (items.length) {
+        track.innerHTML = items.map(t => `<span>${t.trim()}</span>`).join('');
+      }
+    }
+  }
+
+  // ════════ رفع الصورة الشخصية ════════
+  document.getElementById('avatar-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return alert('يرجى اختيار ملف صورة صالح.');
+    if (file.size > 2 * 1024 * 1024) return alert('حجم الصورة يجب أن يكون أقل من 2 ميجابايت.');
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      showAvatar(ev.target.result);
+      if (currentUser) {
+        localStorage.setItem('halfaia_avatar_' + currentUser.identifier, ev.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function showAvatar(src) {
+    const display = document.getElementById('avatar-display');
+    display.innerHTML = `<img src="${src}" alt="الصورة الشخصية">`;
+  }
+
+  // ════════ أزرار التحكم ════════
+  document.getElementById('btn-settings').addEventListener('click', () => {
+    alert('صفحة الإعدادات قيد الإنشاء...');
+  });
+
+  document.getElementById('btn-contact').addEventListener('click', () => {
+    alert('صفحة التواصل قيد الإنشاء...');
+  });
+
+  document.getElementById('btn-logout').addEventListener('click', () => {
+    if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+      localStorage.removeItem('halfaia_current_user');
+      window.location.href = 'index.html';
+    }
+  });
+
+  // ════════ أزرار الخدمات الجديدة ════════
+  document.querySelectorAll('[data-service]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const service = btn.dataset.service;
+      if (service === 'إنشاء هوية رقمية') {
+        window.location.href = 'create-id.html';
+        return;
+      }
+      if (service === 'هويتك') {
+        // يتم التعامل معه عبر الدالة المخصصة له
+        return;
+      }
+      if (service === 'حجز المواعيد في المراكز الصحية') {
+        window.location.href = 'medical-booking.html';
+        return;
+      }
+      if (service === 'فتح ملف طبي إلكتروني موحد' || service === 'تعديل الملف الطبي' || service === 'تعديل الملف الطبي الإلكتروني') {
+        if (checkHasMedicalFile()) {
+          window.location.href = 'medical-file.html?edit=1';
+        } else {
+          window.location.href = 'medical-file.html';
+        }
+        return;
+      }
+      if (service === 'استلام نتائج المختبر والأشعة') {
+        window.location.href = 'medical-results.html';
+        return;
+      }
+      if (service === 'طلب استشارة طبية عن بُعد') {
+        window.location.href = 'telemedicine.html';
+        return;
+      }
+      alert('صفحة «' + service + '» قيد الإنشاء...');
+    });
+  });
+
+  // ════════ حالة الهوية الرقمية والتحكم في تفعيل زر هويتك ════════
+  const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+  let memberIdentityData = null;
+  let identityApprovalStatus = 'none';
+
+  async function checkIdentityStatus() {
+    if (!currentUser || !currentUser.identifier) return;
+
+    const btnMyId = document.getElementById('btn-my-identity');
+    const statusPill = document.getElementById('id-status-pill');
+    if (!btnMyId || !statusPill) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/api/my-identity?userIdentifier=${encodeURIComponent(currentUser.identifier)}`);
+      const data = await res.json();
+
+      if (data.ok && data.hasRequest) {
+        memberIdentityData = data.identity;
+        identityApprovalStatus = data.status || 'pending';
+
+        if (identityApprovalStatus === 'approved') {
+          // تم الاعتماد بنجاح! يفعل الزر مباشرة ويزال التظليل
+          btnMyId.classList.remove('disabled-id');
+          btnMyId.classList.add('approved-id');
+          statusPill.className = 'id-status-pill approved';
+          statusPill.textContent = 'معتمدة ✅';
+        } else if (identityApprovalStatus === 'pending') {
+          // قيد التدقيق: يظل مظللاً
+          btnMyId.classList.add('disabled-id');
+          btnMyId.classList.remove('approved-id');
+          statusPill.className = 'id-status-pill pending';
+          statusPill.textContent = 'قيد التدقيق ⏳';
+        } else if (identityApprovalStatus === 'rejected') {
+          // مرفوضة: يظل مظللاً
+          btnMyId.classList.add('disabled-id');
+          btnMyId.classList.remove('approved-id');
+          statusPill.className = 'id-status-pill rejected';
+          statusPill.textContent = 'مرفوضة ❌';
+        }
+      } else {
+        // لا يوجد طلب: يظل مظللاً
+        identityApprovalStatus = 'none';
+        btnMyId.classList.add('disabled-id');
+        btnMyId.classList.remove('approved-id');
+        statusPill.className = 'id-status-pill none';
+        statusPill.textContent = 'غير مفعلة 🔒';
+      }
+    } catch (err) {
+      console.error('Error checking identity status:', err);
+    }
+  }
+
+  // الضغط على زر هويتك
+  const btnMyIdentity = document.getElementById('btn-my-identity');
+  if (btnMyIdentity) {
+    btnMyIdentity.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAllDropdowns();
+
+      if (identityApprovalStatus === 'approved' && memberIdentityData) {
+        // فتح بطاقة الهوية الرقمية مباشرة
+        openIdModal(memberIdentityData);
+      } else if (identityApprovalStatus === 'pending') {
+        alert('⏳ هويتك الرقمية قيد التدقيق والمراجعة من قبل إدارة المنصة.\nسيتم تفعيل هذا الزر وإصدار البطاقة فور قيام المسؤول باعتماد طلبك.');
+      } else if (identityApprovalStatus === 'rejected') {
+        alert('❌ تم رفض طلب الهوية الرقمية من قِبل إدارة المنصة.\nيمكنك تقديم طلب جديد عبر خيار «إنشاء هوية رقمية».');
+      } else {
+        alert('🔒 لم يتم تقديم طلب إنشاء هوية رقمية بعد.\nاضغط على خيار «إنشاء هوية رقمية» لإدخال بياناتك ورفع المستندات.');
+      }
+    });
+  }
+
+  // فحص الحالة فور تحميل الصفحة
+  checkIdentityStatus();
+
+  // ════════ فحص حالة الملف الطبي وتحديث زر القائمة ════════
+  function checkHasMedicalFile() {
+    const ident = (currentUser && currentUser.identifier) ? currentUser.identifier : 'guest';
+    return Boolean(
+      localStorage.getItem('halfaia_med_file_' + ident) ||
+      localStorage.getItem('halfaia_user_medical_file')
+    );
+  }
+
+  function updateMedicalFileButton() {
+    const btn = document.getElementById('btn-med-file');
+    const txt = document.getElementById('txt-med-file');
+    const icon = document.getElementById('icon-med-file');
+    if (!btn || !txt) return;
+
+    if (checkHasMedicalFile()) {
+      txt.textContent = 'تعديل الملف الطبي';
+      btn.dataset.service = 'تعديل الملف الطبي';
+      btn.title = 'تعديل وتحديث بيانات ملفك الطبي الإلكتروني الموحد';
+      if (icon) {
+        icon.innerHTML = '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>';
+      }
+      let badge = btn.querySelector('.med-file-badge');
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'med-file-badge';
+        badge.style.cssText = 'background:#DDF3F1;color:#167C80;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:auto;display:inline-flex;align-items:center;gap:3px';
+        badge.innerHTML = '✓ مسجل';
+        btn.appendChild(badge);
+      }
+    } else {
+      txt.textContent = 'فتح ملف طبي إلكتروني موحد';
+      btn.dataset.service = 'فتح ملف طبي إلكتروني موحد';
+      btn.title = 'فتح ملف طبي إلكتروني موحد جديد';
+      if (icon) {
+        icon.innerHTML = '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>';
+      }
+      const badge = btn.querySelector('.med-file-badge');
+      if (badge) badge.remove();
+    }
+  }
+
+  // تحديث الزر فوراً
+  updateMedicalFileButton();
+
+  // التحقق من قاعدة البيانات في السيرفر إن وجد ملف طبي محفوظ سابقاً
+  if (currentUser && currentUser.identifier) {
+    fetch(`${API_BASE}/api/medical/files?userIdentifier=${encodeURIComponent(currentUser.identifier)}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d && d.ok && d.files && d.files.length) {
+          const f = d.files[0];
+          const localObj = {
+            mrn: f.mrn,
+            name: f.full_name,
+            natId: f.national_id,
+            blood: f.blood_type,
+            phone: f.phone,
+            chronic: f.chronic_diseases,
+            allergies: f.allergies,
+            emg: f.emergency_contact
+          };
+          localStorage.setItem('halfaia_med_file_' + currentUser.identifier, JSON.stringify(localObj));
+          localStorage.setItem('halfaia_user_medical_file', JSON.stringify(localObj));
+          updateMedicalFileButton();
+        }
+      })
+      .catch(() => {});
+  }
+
+  // ════════ نافذة بطاقة الهوية الذكية والـ QR ════════
+  let isModalCardFlipped = false;
+  function flipModalCard() {
+    const card = document.getElementById('modal-card-3d');
+    isModalCardFlipped = !isModalCardFlipped;
+    card.classList.toggle('flipped', isModalCardFlipped);
+    const btnText = document.getElementById('mcard-flip-btn-text');
+    if (btnText) {
+      btnText.textContent = isModalCardFlipped 
+        ? '⟲ قلب البطاقة (الوجه الأمامي)' 
+        : '⟲ قلب البطاقة (الوجه الخلفي)';
+    }
+  }
+
+  function openIdModal(data) {
+    isModalCardFlipped = false;
+    const card = document.getElementById('modal-card-3d');
+    card.classList.remove('flipped');
+    const btnText = document.getElementById('mcard-flip-btn-text');
+    if (btnText) btnText.textContent = '⟲ قلب البطاقة (الوجه الخلفي)';
+
+    // تحديث رابط الصفحة المستقلة وحفظ نسخة سريعة
+    const userIdent = data.user_identifier || (currentUser ? currentUser.identifier : '');
+    const btnFull = document.getElementById('btn-modal-open-full');
+    if (btnFull) {
+      btnFull.href = 'my-id.html?user=' + encodeURIComponent(userIdent);
+    }
+    try {
+      localStorage.setItem('halfaia_approved_id_' + userIdent, JSON.stringify(data));
+    } catch(e) {}
+
+    // 1. الوجه الأمامي: الاسم الرباعي + الهاتف + البريد
+    document.getElementById('mcard-full-name').textContent = data.full_name || 'غير محدد';
+    document.getElementById('mcard-phone').textContent = data.phone || '-';
+    document.getElementById('mcard-email').textContent = data.email || '-';
+    const formattedId = 'HAL-2026-' + String(data.id).padStart(5, '0');
+    document.getElementById('mcard-serial').textContent = formattedId;
+
+    // الصورة الشخصية
+    const imgEl = document.getElementById('mcard-photo-img');
+    const fallbackEl = document.getElementById('mcard-photo-fallback');
+    const photoSrc = data.photo_data || localStorage.getItem('halfaia_avatar_' + (currentUser ? currentUser.identifier : ''));
+    if (photoSrc) {
+      imgEl.src = photoSrc;
+      imgEl.style.display = 'block';
+      fallbackEl.style.display = 'none';
+    } else {
+      imgEl.style.display = 'none';
+      fallbackEl.style.display = 'flex';
+    }
+
+    // 2. الوجه الخلفي: الجنس + الجنسية + العلاقة بالحلفاية + تاريخ الميلاد
+    document.getElementById('mcard-gender').textContent = data.gender || '-';
+    document.getElementById('mcard-nationality').textContent = data.nationality || '-';
+    document.getElementById('mcard-relation').textContent = data.halfaia_relation || '-';
+    document.getElementById('mcard-birthdate').textContent = data.birth_date || '-';
+
+    // 3. توليد رمز QR Code القابل للمسح
+    const qrContainer = document.getElementById('modal-card-qrcode');
+    qrContainer.innerHTML = '';
+    const qrText = 
+`بطاقة الهوية الرقمية - حلفاية الملوك
+----------------------------------
+الاسم: ${data.full_name || '-'}
+رقم الهوية: ${formattedId}
+الجنس: ${data.gender || '-'}
+الجنسية: ${data.nationality || '-'}
+العلاقة بالحلفاية: ${data.halfaia_relation || '-'}
+تاريخ الميلاد: ${data.birth_date || '-'}
+الهاتف: ${data.phone || '-'}
+البريد: ${data.email || '-'}
+----------------------------------
+الحالة: معتمدة ومسجلة رسمياً ✅`;
+
+    // 1. التوليد عبر مكتبة qrcode-generator المحلية
+    if (typeof qrcode === 'function') {
+      try {
+        if (qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+          qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        }
+        const qr = qrcode(0, 'M');
+        qr.addData(qrText, 'Byte');
+        qr.make();
+        qrContainer.innerHTML = qr.createImgTag(3, 2);
+        const img = qrContainer.querySelector('img');
+        if (img) {
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.display = 'block';
+          img.style.objectFit = 'contain';
+        }
+      } catch(e) {
+        console.warn('QR code error, falling back:', e);
+        const encoded = encodeURIComponent(qrText);
+        qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encoded}" alt="QR Code" style="width:100%;height:100%;object-fit:contain;display:block">`;
+      }
+    } else {
+      // 2. بديل فوري
+      const encoded = encodeURIComponent(qrText);
+      qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encoded}" alt="QR Code" style="width:100%;height:100%;object-fit:contain;display:block">`;
+    }
+
+    document.getElementById('id-modal-overlay').classList.add('active');
+  }
+
+  function closeIdModal() {
+    document.getElementById('id-modal-overlay').classList.remove('active');
+  }
+
+  function handleModalOverlayClick(e) {
+    if (e.target.id === 'id-modal-overlay') {
+      closeIdModal();
+    }
+  }
+
+  // ════════ القوائم المنسدلة (الهوية الرقمية والمراكز الصحية والخدمات الخاصة) ════════
+  const dropdowns = [
+    { dd: document.getElementById('identity-dd'), toggle: document.getElementById('identity-toggle') },
+    { dd: document.getElementById('health-dd'), toggle: document.getElementById('health-toggle') },
+    { dd: document.getElementById('special'), toggle: document.getElementById('special-toggle') }
+  ];
+
+  function closeAllDropdowns() {
+    dropdowns.forEach(({ dd, toggle }) => {
+      if (dd && toggle) {
+        dd.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  dropdowns.forEach(({ dd, toggle }) => {
+    if (!dd || !toggle) return;
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = dd.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dd.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-dd')) {
+      closeAllDropdowns();
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAllDropdowns();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | فتح ملف طبي إلكتروني موحد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="qrcode.min.js"></script>
+<script>if(typeof qrcode==='undefined'){document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"><\/script>');}</script>
+<style>
+  :root {
+    --gray-base:#808080; --navy:#1E3A5F; --navy-dark:#152C48; --navy-light:#2A4E7A;
+    --gold-beige:#E8CFA8; --gold-hover:#D4B88E;
+    --bg-page:#F0F2F5; --bg-card:#FFFFFF; --line:rgba(30,58,95,0.12);
+    --shadow-sm:0 1px 3px rgba(30,58,95,0.06);
+    --shadow-md:0 6px 20px rgba(30,58,95,0.08);
+    --shadow-lg:0 14px 34px rgba(30,58,95,0.14);
+    --success:#1E7E34; --radius:16px; --radius-sm:10px;
+    --transition:all .25s cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans Arabic","Segoe UI",sans-serif;color:var(--navy);background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  button,input,select,textarea{font-family:inherit}
+
+  .top-bar{background:var(--bg-card);padding:10px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:relative;z-index:10}
+  .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy-dark)}
+  .logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+  .brand-title{font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:1.1rem}
+  .btn-back{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--radius-sm);background:rgba(30,58,95,.05);border:1px solid var(--line);color:var(--navy);font-weight:600;font-size:.85rem;text-decoration:none;transition:var(--transition)}
+  .btn-back:hover{background:var(--navy);color:var(--gold-beige)}
+
+  .hero-strip{background:linear-gradient(120deg,var(--navy-dark),var(--navy) 60%,var(--navy-light));color:#fff;padding:32px clamp(16px,4vw,48px);border-bottom:3px solid var(--gold-beige)}
+  .hero-inner{max-width:1050px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .hero-title h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.45rem;color:var(--gold-beige);margin-bottom:6px}
+  .hero-title p{font-size:.9rem;color:rgba(255,255,255,.85);max-width:580px;line-height:1.6}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,207,168,.15);border:1px solid rgba(232,207,168,.3);padding:6px 14px;border-radius:20px;color:var(--gold-beige);font-size:.8rem;font-weight:600}
+
+  .main-wrapper{max-width:980px;width:100%;margin:28px auto 60px;padding:0 16px;flex:1}
+
+  .med-card{background:var(--bg-card);border-radius:var(--radius);padding:clamp(20px,4vw,36px);box-shadow:var(--shadow-md);border:1px solid var(--line)}
+
+  .form-section-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy-dark);margin:24px 0 16px;display:flex;align-items:center;gap:9px;padding-bottom:10px;border-bottom:1.5px solid var(--line)}
+  .form-section-title:first-child{margin-top:0}
+  .form-section-title svg{width:20px;height:20px;stroke:var(--navy);fill:none;stroke-width:2}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:18px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:.86rem;font-weight:700;color:var(--navy-dark)}
+  .form-group select,.form-group input,.form-group textarea{width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);font-size:.92rem;background:#fff;color:var(--navy);transition:var(--transition)}
+  .form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:var(--gold-hover);outline:none;box-shadow:0 0 0 3px rgba(232,207,168,.3)}
+
+  /* مربعات الاختيار للأمراض المزمنة */
+  .checkboxes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:12px 0 18px}
+  .checkbox-label{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);background:#F8FAFC;cursor:pointer;font-size:.86rem;font-weight:600;transition:var(--transition)}
+  .checkbox-label:hover{border-color:var(--gold-hover);background:#fff}
+  .checkbox-label input[type="checkbox"]{width:17px;height:17px;accent-color:var(--navy);cursor:pointer}
+
+  .btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:var(--gold-beige);border:none;border-radius:var(--radius-sm);font-family:"Noto Kufi Arabic",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:24px;box-shadow:var(--shadow-md);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:9px}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:linear-gradient(135deg,#152C48,#0E1E32)}
+
+  /* بطاقة الملف الطبي المعتمد */
+  .file-card-result{background:linear-gradient(135deg,#12243B 0%,#1B3556 50%,#102136 100%);color:#fff;border-radius:var(--radius);padding:32px clamp(20px,4vw,36px);border:2px solid var(--gold-beige);box-shadow:var(--shadow-lg);margin-top:24px;display:none}
+  .fcard-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(232,207,168,.2);padding-bottom:16px;margin-bottom:20px}
+  .fcard-header h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.2rem;color:var(--gold-beige)}
+  .fcard-body{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .finfo-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .fitem{font-size:.88rem;display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,.05);padding:8px 12px;border-radius:8px;border:1px solid rgba(232,207,168,.1)}
+  .fitem .flbl{color:var(--gold-beige);font-size:.76rem;font-weight:600}
+  .fitem .fval{color:#fff;font-weight:700}
+  .fcard-qr{background:#fff;padding:8px;border-radius:12px;border:2px solid var(--gold-beige);width:125px;height:125px;display:flex;align-items:center;justify-content:center}
+  .fcard-qr img{width:100%;height:100%;display:block}
+
+  .file-actions{display:flex;gap:12px;margin-top:24px;justify-content:flex-end;flex-wrap:wrap}
+  .btn-act{padding:9px 20px;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;border:none;transition:var(--transition);display:inline-flex;align-items:center;gap:7px}
+  .btn-print{background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));color:var(--navy-dark)}
+  .btn-edit{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+
+  @media(max-width:700px){
+    .grid-2,.grid-3,.finfo-list{grid-template-columns:1fr}
+    .fcard-body{grid-template-columns:1fr;justify-items:center;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="individual.html" class="brand">
+    <div class="logo-mark"></div>
+    <span class="brand-title">منصة أبناء حلفاية الملوك</span>
+  </a>
+  <a href="individual.html" class="btn-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span>الرجوع للرئيسية</span>
+  </a>
+</header>
+
+<section class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-title">
+      <h1 id="page-hero-title">فتح ملف طبي إلكتروني موحد</h1>
+      <p>ربط السجل الصحي للمواطن بكافة المراكز والمستشفيات في حلفاية الملوك، لتسهيل متابعة التاريخ المرضي وصرف الأدوية في الحالات العادية والطارئة.</p>
+    </div>
+    <span class="hero-badge">✦ السجل الطبي الرقمي الموحد</span>
+  </div>
+</section>
+
+<main class="main-wrapper">
+
+  <div class="med-card" id="file-form-card">
+    <form id="med-file-form" onsubmit="handleFileSubmit(event)">
+
+      <div class="form-section-title">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>1. البيانات الأساسية والتعريفية</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>الاسم الكامل رباعياً</label>
+          <input type="text" id="m-name" required placeholder="أدخل اسم المريض الرباعي">
+        </div>
+        <div class="form-group">
+          <label>رقم الهوية الوطنية أو الجواز</label>
+          <input type="text" id="m-nat-id" required placeholder="رقم الهوية أو الجواز">
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="form-group">
+          <label>تاريخ الميلاد</label>
+          <input type="date" id="m-birth" required>
+        </div>
+        <div class="form-group">
+          <label>الجنس</label>
+          <select id="m-gender">
+            <option value="ذكر">ذكر</option>
+            <option value="أنثى">أنثى</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>فصيلة الدم</label>
+          <select id="m-blood">
+            <option value="O+">O+</option>
+            <option value="A+">A+</option>
+            <option value="B+">B+</option>
+            <option value="AB+">AB+</option>
+            <option value="O-">O-</option>
+            <option value="A-">A-</option>
+            <option value="B-">B-</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>رقم الهاتف الأساسي</label>
+          <input type="tel" id="m-phone" required placeholder="09xxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>محل السكن / الحي بالحلفاية</label>
+          <input type="text" id="m-address" placeholder="مثال: الحلفاية المحطة الوسطى، الحي الشرقي">
+        </div>
+      </div>
+
+      <div class="form-section-title">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+        <span>2. التاريخ المرضي والأمراض المزمنة</span>
+      </div>
+
+      <p style="font-size:0.84rem;color:var(--gray-base);margin-bottom:8px">يرجى تحديد الأمراض المزمنة إن وجدت:</p>
+      <div class="checkboxes-grid">
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="داء السكري"> داء السكري</label>
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="ارتفاع ضغط الدم"> ارتفاع ضغط الدم</label>
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="الربو والحساسية الصدرية"> الربو والحساسية الصدرية</label>
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="أمراض القلب والشرايين"> أمراض القلب والشرايين</label>
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="القصور الكلوي"> القصور الكلوي</label>
+        <label class="checkbox-label"><input type="checkbox" name="chronic" value="الغدة الدرقية"> اضطرابات الغدة الدرقية</label>
+      </div>
+
+      <div class="form-group" style="margin-bottom:18px">
+        <label>الحساسية الدوائية أو الغذائية (إن وجدت)</label>
+        <input type="text" id="m-allergies" placeholder="مثال: حساسية البنسلين، حساسية الفول السوداني، إلخ (أو اكتب: لا توجد)">
+      </div>
+
+      <div class="form-group" style="margin-bottom:18px">
+        <label>العمليات الجراحية السابقة أو الأدوية الدورية</label>
+        <textarea id="m-surgeries" rows="2" placeholder="أدخل أي عمليات سابقة أو أدوية يتم تناولها بانتظام"></textarea>
+      </div>
+
+      <div class="form-section-title">
+        <svg viewBox="0 0 24 24"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>3. جهة الاتصال في حالات الطوارئ</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>اسم الشخص للطوارئ</label>
+          <input type="text" id="m-emg-name" required placeholder="اسم القريب / ولي الأمر">
+        </div>
+        <div class="form-group">
+          <label>رقم هاتف الطوارئ</label>
+          <input type="tel" id="m-emg-phone" required placeholder="09xxxxxxx">
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <button type="submit" class="btn-submit" id="submit-file-btn" style="flex:1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="submit-btn-text">اعتماد وتسجيل الملف الطبي الإلكتروني الموحد</span>
+        </button>
+        <button type="button" class="btn-act" id="cancel-edit-btn" onclick="cancelEditFile()" style="display:none;background:#F1F5F9;color:#475569;border:1.5px solid #CBD5E1;padding:12px 22px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer">
+          إلغاء والعودة للبطاقة
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- بطاقة الملف الطبي المعتمد بعد الإنشاء -->
+  <div class="file-card-result" id="file-result-card">
+    <div class="fcard-header">
+      <div>
+        <h3>بطاقة الملف الطبي الموحد (MRN) ✅</h3>
+        <span style="font-size:0.75rem;color:rgba(255,255,255,0.7)">منظومة الربط الصحي الرقمي • حلفاية الملوك</span>
+      </div>
+      <span style="font-family:monospace;font-size:1.15rem;color:var(--gold-beige);font-weight:700" id="disp-mrn">MRN-HAL-00000</span>
+    </div>
+
+    <div class="fcard-body">
+      <div class="finfo-list">
+        <div class="fitem"><span class="flbl">اسم المريض:</span><span class="fval" id="disp-name">-</span></div>
+        <div class="fitem"><span class="flbl">فصيلة الدم:</span><span class="fval" id="disp-blood" style="color:#ff6b6b">-</span></div>
+        <div class="fitem"><span class="flbl">رقم الهوية:</span><span class="fval" id="disp-id">-</span></div>
+        <div class="fitem"><span class="flbl">تاريخ الميلاد / الجنس:</span><span class="fval" id="disp-birth-gender">-</span></div>
+        <div class="fitem"><span class="flbl">رقم الهاتف:</span><span class="fval" id="disp-phone"><bdi>-</bdi></span></div>
+        <div class="fitem"><span class="flbl">الأمراض المزمنة المسجلة:</span><span class="fval" id="disp-chronic">-</span></div>
+        <div class="fitem"><span class="flbl">الحساسية الدوائية:</span><span class="fval" id="disp-allergies">-</span></div>
+        <div class="fitem"><span class="flbl">طوارئ:</span><span class="fval" id="disp-emg">-</span></div>
+      </div>
+
+      <div class="fcard-qr" id="file-qr-box"></div>
+    </div>
+
+    <div class="file-actions">
+      <button class="btn-act btn-print" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>طباعة السجل الطبي (PDF)</span>
+      </button>
+      <button class="btn-act btn-edit" onclick="editFile()">تعديل البيانات</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+  const rawUser = localStorage.getItem('halfaia_current_user');
+  let currentUser = null;
+  try { currentUser = rawUser ? JSON.parse(rawUser) : null; } catch(e) {}
+
+  const activeUser = currentUser ? currentUser.identifier : 'guest';
+
+  function populateFormWithExistingData(fd) {
+    if (!fd) return;
+    if (fd.name) document.getElementById('m-name').value = fd.name;
+    if (fd.natId) document.getElementById('m-nat-id').value = fd.natId;
+    if (fd.birth) document.getElementById('m-birth').value = fd.birth;
+    if (fd.gender) document.getElementById('m-gender').value = fd.gender;
+    if (fd.blood) document.getElementById('m-blood').value = fd.blood;
+    if (fd.phone) document.getElementById('m-phone').value = fd.phone;
+    if (fd.address && document.getElementById('m-address')) document.getElementById('m-address').value = fd.address;
+    if (fd.allergies) document.getElementById('m-allergies').value = (fd.allergies === 'لا توجد' ? '' : fd.allergies);
+
+    if (fd.chronic) {
+      document.querySelectorAll('input[name="chronic"]').forEach(cb => {
+        cb.checked = fd.chronic.includes(cb.value);
+      });
+    }
+
+    if (fd.emg) {
+      const match = fd.emg.match(/^(.*?)\s*\((.*?)\)$/);
+      if (match) {
+        document.getElementById('m-emg-name').value = match[1].trim();
+        document.getElementById('m-emg-phone').value = match[2].trim();
+      } else {
+        document.getElementById('m-emg-name').value = fd.emg;
+      }
+    }
+  }
+
+  function setEditModeUI(isEdit) {
+    const title = document.getElementById('page-hero-title');
+    const submitText = document.getElementById('submit-btn-text');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    if (isEdit) {
+      if (title) title.textContent = 'تعديل وتحديث الملف الطبي الإلكتروني الموحد';
+      if (submitText) submitText.textContent = 'حفظ وتحديث بيانات الملف الطبي';
+      if (cancelBtn) cancelBtn.style.display = 'inline-block';
+    } else {
+      if (title) title.textContent = 'فتح ملف طبي إلكتروني موحد';
+      if (submitText) submitText.textContent = 'اعتماد وتسجيل الملف الطبي الإلكتروني الموحد';
+      if (cancelBtn) cancelBtn.style.display = 'none';
+    }
+  }
+
+  // قراءة المعلمات لمعرفة هل المطلوب التعديل المباشر
+  const urlParams = new URLSearchParams(window.location.search);
+  const wantsEdit = urlParams.get('edit') === '1';
+
+  // التحقق إن كان المستخدم فتح ملفاً مسبقاً
+  const savedFile = localStorage.getItem('halfaia_med_file_' + activeUser) || localStorage.getItem('halfaia_user_medical_file');
+  if (savedFile) {
+    try {
+      const fd = JSON.parse(savedFile);
+      if (wantsEdit) {
+        populateFormWithExistingData(fd);
+        setEditModeUI(true);
+        document.getElementById('file-form-card').style.display = 'block';
+        document.getElementById('file-result-card').style.display = 'none';
+      } else {
+        showResultCard(fd);
+      }
+    } catch(e) {
+      if (savedFile) showResultCard(JSON.parse(savedFile));
+    }
+  } else {
+    // التعبئة التلقائية للبيانات المتاحة
+    if (currentUser) {
+      const cachedId = localStorage.getItem('halfaia_approved_id_' + activeUser);
+      if (cachedId) {
+        try {
+          const idData = JSON.parse(cachedId);
+          if (idData.full_name) document.getElementById('m-name').value = idData.full_name;
+          if (idData.phone) document.getElementById('m-phone').value = idData.phone;
+          if (idData.birth_date) document.getElementById('m-birth').value = idData.birth_date;
+          if (idData.gender) document.getElementById('m-gender').value = idData.gender;
+        } catch(e) {}
+      } else {
+        if (currentUser.identifier) document.getElementById('m-name').value = currentUser.identifier;
+        if (currentUser.phone) document.getElementById('m-phone').value = currentUser.phone;
+      }
+    }
+  }
+
+  async function handleFileSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('m-name').value.trim();
+    const natId = document.getElementById('m-nat-id').value.trim();
+    const birth = document.getElementById('m-birth').value;
+    const gender = document.getElementById('m-gender').value;
+    const blood = document.getElementById('m-blood').value;
+    const phone = document.getElementById('m-phone').value.trim();
+    const address = document.getElementById('m-address') ? document.getElementById('m-address').value.trim() : '';
+    const allergies = document.getElementById('m-allergies').value.trim() || 'لا توجد';
+    const emgName = document.getElementById('m-emg-name').value.trim();
+    const emgPhone = document.getElementById('m-emg-phone').value.trim();
+
+    const chronicChecked = Array.from(document.querySelectorAll('input[name="chronic"]:checked')).map(c => c.value);
+    const chronicStr = chronicChecked.length ? chronicChecked.join('، ') : 'لا توجد أمراض مزمنة مسجلة';
+
+    // الحفاظ على رقم الملف الأصلي إن وجد
+    let existingMrn = null;
+    const prevRaw = localStorage.getItem('halfaia_med_file_' + activeUser) || localStorage.getItem('halfaia_user_medical_file');
+    if (prevRaw) {
+      try { existingMrn = JSON.parse(prevRaw).mrn; } catch(e) {}
+    }
+    const mrn = existingMrn || ('MRN-HAL-' + Math.floor(10000 + Math.random() * 90000));
+
+    const fileData = {
+      mrn, name, natId, birth, gender, blood, phone, address, allergies, chronic: chronicStr, emg: `${emgName} (${emgPhone})`
+    };
+
+    // حفظ الملف في حساب المواطن الشخصي
+    localStorage.setItem('halfaia_med_file_' + activeUser, JSON.stringify(fileData));
+    localStorage.setItem('halfaia_user_medical_file', JSON.stringify(fileData));
+
+    // مزامنة مع السيرفر وقاعدة البيانات
+    try {
+      await fetch(`${API_BASE}/api/medical/files`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userIdentifier: activeUser,
+          mrn: fileData.mrn,
+          fullName: fileData.name,
+          nationalId: fileData.natId,
+          phone: fileData.phone,
+          bloodType: fileData.blood,
+          chronicDiseases: fileData.chronic,
+          allergies: fileData.allergies,
+          emergencyContact: emgName,
+          emergencyPhone: emgPhone
+        })
+      });
+    } catch(e) {}
+
+    showResultCard(fileData);
+  }
+
+  function showResultCard(fd) {
+    document.getElementById('disp-mrn').textContent = fd.mrn;
+    document.getElementById('disp-name').textContent = fd.name;
+    document.getElementById('disp-blood').textContent = fd.blood;
+    document.getElementById('disp-id').textContent = fd.natId;
+    document.getElementById('disp-birth-gender').textContent = `${fd.birth || ''} • ${fd.gender || ''}`;
+    document.getElementById('disp-phone').textContent = fd.phone;
+    document.getElementById('disp-chronic').textContent = fd.chronic;
+    document.getElementById('disp-allergies').textContent = fd.allergies;
+    document.getElementById('disp-emg').textContent = fd.emg;
+
+    // توليد رمز QR للملف الطبي الموحد
+    const qrContainer = document.getElementById('file-qr-box');
+    qrContainer.innerHTML = '';
+    const qrText = `السجل الطبي الموحد - حلفاية الملوك\nرقم الملف: ${fd.mrn}\nالمريض: ${fd.name}\nفصيلة الدم: ${fd.blood}\nالأمراض المزمنة: ${fd.chronic}\nالحساسية: ${fd.allergies}\nطوارئ: ${fd.emg}`;
+
+    if (typeof qrcode === 'function') {
+      try {
+        if (qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+          qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        }
+        const qr = qrcode(0, 'M');
+        qr.addData(qrText, 'Byte');
+        qr.make();
+        qrContainer.innerHTML = qr.createImgTag(3, 2);
+        const img = qrContainer.querySelector('img');
+        if (img) { img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'contain'; }
+      } catch(e) {}
+    } else {
+      qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=115x115&data=${encodeURIComponent(qrText)}" alt="QR" style="width:100%;height:100%">`;
+    }
+
+    document.getElementById('file-form-card').style.display = 'none';
+    const resCard = document.getElementById('file-result-card');
+    resCard.style.display = 'block';
+    resCard.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function editFile() {
+    const saved = localStorage.getItem('halfaia_med_file_' + activeUser) || localStorage.getItem('halfaia_user_medical_file');
+    if (saved) {
+      try {
+        const fd = JSON.parse(saved);
+        populateFormWithExistingData(fd);
+      } catch(e) {}
+    }
+    setEditModeUI(true);
+    document.getElementById('file-result-card').style.display = 'none';
+    document.getElementById('file-form-card').style.display = 'block';
+    document.getElementById('file-form-card').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function cancelEditFile() {
+    document.getElementById('file-form-card').style.display = 'none';
+    document.getElementById('file-result-card').style.display = 'block';
+    document.getElementById('file-result-card').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

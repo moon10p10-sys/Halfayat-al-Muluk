@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | حجز المواعيد في المراكز الصحية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="qrcode.min.js"></script>
+<script>if(typeof qrcode==='undefined'){document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"><\/script>');}</script>
+<style>
+  :root {
+    --gray-base:#808080; --navy:#1E3A5F; --navy-dark:#152C48; --navy-light:#2A4E7A;
+    --gold-beige:#E8CFA8; --gold-hover:#D4B88E;
+    --bg-page:#F0F2F5; --bg-card:#FFFFFF; --line:rgba(30,58,95,0.12);
+    --shadow-sm:0 1px 3px rgba(30,58,95,0.06);
+    --shadow-md:0 6px 20px rgba(30,58,95,0.08);
+    --shadow-lg:0 14px 34px rgba(30,58,95,0.14);
+    --success:#1E7E34; --radius:16px; --radius-sm:10px;
+    --transition:all .25s cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans Arabic","Segoe UI",sans-serif;color:var(--navy);background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  button,input,select,textarea{font-family:inherit}
+
+  /* الرأس العلوي */
+  .top-bar{background:var(--bg-card);padding:10px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:relative;z-index:10}
+  .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy-dark)}
+  .logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+  .brand-title{font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:1.1rem}
+  .btn-back{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--radius-sm);background:rgba(30,58,95,.05);border:1px solid var(--line);color:var(--navy);font-weight:600;font-size:.85rem;text-decoration:none;transition:var(--transition)}
+  .btn-back:hover{background:var(--navy);color:var(--gold-beige)}
+
+  /* البانر */
+  .hero-strip{background:linear-gradient(120deg,var(--navy-dark),var(--navy) 60%,var(--navy-light));color:#fff;padding:32px clamp(16px,4vw,48px);border-bottom:3px solid var(--gold-beige);position:relative}
+  .hero-inner{max-width:1050px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .hero-title h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.45rem;color:var(--gold-beige);margin-bottom:6px}
+  .hero-title p{font-size:.9rem;color:rgba(255,255,255,.85);max-width:560px;line-height:1.6}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,207,168,.15);border:1px solid rgba(232,207,168,.3);padding:6px 14px;border-radius:20px;color:var(--gold-beige);font-size:.8rem;font-weight:600}
+
+  /* المحتوى الرئيسي */
+  .main-wrapper{max-width:980px;width:100%;margin:28px auto 60px;padding:0 16px;flex:1}
+
+  .booking-card{background:var(--bg-card);border-radius:var(--radius);padding:clamp(20px,4vw,36px);box-shadow:var(--shadow-md);border:1px solid var(--line)}
+
+  .form-section-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy-dark);margin-bottom:18px;display:flex;align-items:center;gap:9px;padding-bottom:10px;border-bottom:1.5px solid var(--line)}
+  .form-section-title svg{width:20px;height:20px;stroke:var(--navy);fill:none;stroke-width:2}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:.86rem;font-weight:700;color:var(--navy-dark)}
+  .form-group select,.form-group input,.form-group textarea{width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);font-size:.92rem;background:#fff;color:var(--navy);transition:var(--transition)}
+  .form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:var(--gold-hover);outline:none;box-shadow:0 0 0 3px rgba(232,207,168,.3)}
+
+  /* بطاقات اختيار المراكز */
+  .centers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:22px}
+  .center-option{background:#F8FAFC;border:2px solid var(--line);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:var(--transition);text-align:right}
+  .center-option:hover{border-color:var(--navy-light);transform:translateY(-2px)}
+  .center-option.selected{border-color:var(--navy);background:linear-gradient(135deg,rgba(30,58,95,.05),rgba(232,207,168,.12));box-shadow:0 3px 10px rgba(30,58,95,.08)}
+  .center-option h4{font-family:"Noto Kufi Arabic",sans-serif;font-size:.88rem;color:var(--navy-dark);margin-bottom:3px}
+  .center-option p{font-size:.74rem;color:var(--gray-base)}
+
+  /* شرائح الأوقات والتنسيق الزمني */
+  .slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
+  .time-slot{padding:10px;text-align:center;border-radius:8px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-weight:600;font-size:.82rem;direction:ltr;transition:var(--transition);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .time-slot:hover:not(.disabled){border-color:var(--gold-hover);background:rgba(232,207,168,.1)}
+  .time-slot.selected{background:var(--navy);color:var(--gold-beige);border-color:var(--navy)}
+  .time-slot.disabled{background:#F1F5F9;color:#94A3B8;border-color:#E2E8F0;cursor:not-allowed}
+  .time-slot.disabled .slot-hint{font-size:0.65rem;font-weight:700}
+  .time-slot.booked .slot-hint{color:#DC2626}
+  .time-slot.passed .slot-hint{color:#94A3B8}
+
+  /* بطاقة جدول الطبيب وسعة الحجز */
+  .doctor-schedule-card{background:#F0F9F8;border:1.5px solid #BCE5E2;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .doc-info-side{display:flex;align-items:center;gap:12px}
+  .doc-avatar{width:46px;height:46px;border-radius:12px;background:#167C80;color:#fff;display:grid;place-items:center;font-size:1.4rem;flex-shrink:0}
+  .doc-info-side h4{font-family:"Noto Kufi Arabic",sans-serif;font-size:.92rem;color:#263B50;margin-bottom:3px}
+  .doc-info-side p{font-size:.76rem;color:#627485;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .doc-status-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .status-pill{padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+  .status-pill.open{background:#DCFCE7;color:#166534;border:1px solid #86EFAC}
+  .status-pill.closed{background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5}
+  .status-pill.warning{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+
+  /* تنبيهات موعد العيادة وسعة الحجز */
+  .booking-notice{padding:16px 18px;border-radius:12px;margin-bottom:20px;display:none;align-items:flex-start;gap:14px;animation:fadeIn .25s ease}
+  .booking-notice.warning{background:#FFFBEB;border:1.5px solid #FCD34D;color:#92400E}
+  .booking-notice.danger{background:#FEF2F2;border:1.5px solid #FCA5A5;color:#991B1B}
+  .booking-notice.success{background:#F0FDF4;border:1.5px solid #86EFAC;color:#166534}
+  .booking-notice-content{flex:1}
+  .booking-notice-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:.95rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .booking-notice-desc{font-size:.84rem;line-height:1.6}
+  .btn-jump-next{margin-top:10px;background:var(--navy);color:var(--gold-beige);border:none;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:var(--transition)}
+  .btn-jump-next:hover{background:#102136;transform:translateY(-1px)}
+
+  /* بطاقة خيار إرفاق الملف الطبي */
+  .med-file-attach-card{background:#F8FAFC;border:1.5px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:22px;transition:var(--transition)}
+  .med-file-attach-card:hover{border-color:var(--teal)}
+  .btn-preview-file{background:#fff;border:1.5px solid var(--line);color:var(--navy);padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:var(--transition)}
+  .btn-preview-file:hover{border-color:var(--teal);color:var(--teal)}
+  .btn-create-file{background:var(--navy);color:var(--gold-beige);padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:var(--transition)}
+  .btn-create-file:hover{background:#102136;transform:translateY(-1px)}
+
+  /* نافذة معاينة الملف الطبي السريعة */
+  .modal-overlay{position:fixed;inset:0;background:rgba(22,36,52,.6);backdrop-filter:blur(4px);z-index:999;display:none;align-items:center;justify-content:center;padding:16px}
+  .modal-content{background:#fff;border-radius:20px;max-width:540px;width:100%;overflow:hidden;box-shadow:var(--shadow-lg);animation:fadeIn .2s ease}
+  .modal-head{background:linear-gradient(135deg,var(--navy),#167C80);color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+  .modal-head h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;font-weight:700}
+  .modal-body{padding:22px;font-size:.88rem;max-height:75vh;overflow-y:auto}
+  .preview-row{display:flex;padding:10px 0;border-bottom:1px dashed var(--line);justify-content:space-between}
+  .preview-row:last-child{border-bottom:none}
+  .preview-label{color:var(--gray-base);font-weight:600}
+  .preview-val{color:var(--navy-dark);font-weight:700}
+
+  .btn-submit:disabled{background:#94A3B8;cursor:not-allowed;transform:none;box-shadow:none;color:#E2E8F0}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+  .btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:var(--gold-beige);border:none;border-radius:var(--radius-sm);font-family:"Noto Kufi Arabic",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:24px;box-shadow:var(--shadow-md);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:9px}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:linear-gradient(135deg,#152C48,#0E1E32)}
+
+  /* تذكرة الحجز بعد التأكيد */
+  .ticket-card{background:linear-gradient(135deg,#12243B 0%,#1B3556 50%,#102136 100%);color:#fff;border-radius:var(--radius);padding:30px clamp(20px,4vw,36px);border:2px solid var(--gold-beige);box-shadow:var(--shadow-lg);margin-top:24px;display:none;position:relative}
+  .ticket-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(232,207,168,.2);padding-bottom:16px;margin-bottom:20px}
+  .ticket-header h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.15rem;color:var(--gold-beige)}
+  .ticket-body{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .ticket-info{display:flex;flex-direction:column;gap:10px}
+  .ticket-row{display:flex;gap:10px;font-size:.88rem}
+  .ticket-row .tlabel{color:var(--gold-beige);font-weight:600;min-width:110px}
+  .ticket-qr-box{background:#fff;padding:8px;border-radius:12px;border:2px solid var(--gold-beige);display:flex;align-items:center;justify-content:center;width:120px;height:120px}
+  .ticket-qr-box img{width:100%;height:100%;display:block}
+
+  .ticket-actions{display:flex;gap:12px;margin-top:22px;justify-content:flex-end;flex-wrap:wrap}
+  .btn-ticket-act{padding:9px 20px;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;border:none;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+  .btn-print{background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));color:var(--navy-dark)}
+  .btn-new-book{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+
+  @media(max-width:700px){
+    .grid-2{grid-template-columns:1fr}
+    .ticket-body{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .ticket-row{justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="individual.html" class="brand">
+    <div class="logo-mark"></div>
+    <span class="brand-title">منصة أبناء حلفاية الملوك</span>
+  </a>
+  <a href="individual.html" class="btn-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span>الرجوع للرئيسية</span>
+  </a>
+</header>
+
+<section class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-title">
+      <h1>حجز المواعيد في المراكز الصحية</h1>
+      <p>خدمة حجز المواعيد المسبقة في المراكز والمجمعات الطبية في حلفاية الملوك لتفادي الانتظار وتلقي الرعاية الطبية المثلى.</p>
+    </div>
+    <span class="hero-badge">✦ خدمة الرعاية الصحية المباشرة</span>
+  </div>
+</section>
+
+<main class="main-wrapper">
+
+  <div class="booking-card" id="booking-form-card">
+    <div class="form-section-title">
+      <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"></path><path d="M9 21v-5h6v5"></path><line x1="12" y1="8" x2="12" y2="12"></line><line x1="10" y1="10" x2="14" y2="10"></line></svg>
+      <span>1. اختر المركز الصحي</span>
+    </div>
+
+    <div class="centers-grid">
+      <div class="center-option selected" data-center="مركز صحي حلفاية الملوك النموذجي" onclick="selectCenter(this)">
+        <h4>مركز صحي حلفاية الملوك النموذجي</h4>
+        <p>شارع المعونة • متاح كافة التخصصات</p>
+      </div>
+      <div class="center-option" data-center="مركز صحي الشعبية جنوب" onclick="selectCenter(this)">
+        <h4>مركز صحي الشعبية</h4>
+        <p>الحي الشرقي • رعاية أولية وأسرة</p>
+      </div>
+      <div class="center-option" data-center="مجمع عيادات الحلفاية التخصصية" onclick="selectCenter(this)">
+        <h4>مجمع عيادات الحلفاية</h4>
+        <p>الميدان العام • استشاريون وأشعة</p>
+      </div>
+    </div>
+
+    <div class="form-section-title">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>2. بيانات العيادة وتحديد الموعد</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>التخصص الطبي / العيادة</label>
+        <select id="clinic-select" onchange="onClinicChange()">
+          <option value="الطب العام والطوارئ">الطب العام والطوارئ</option>
+          <option value="طب الأطفال وحديثي الولادة">طب الأطفال وحديثي الولادة</option>
+          <option value="الباطنية والسكري">الباطنية والسكري</option>
+          <option value="النساء والتوليد">النساء والتوليد</option>
+          <option value="طب وجراحة الأسنان">طب وجراحة الأسنان</option>
+          <option value="العيون والبصريات">العيون والبصريات</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>الطبيب المعالج</label>
+        <select id="doctor-select" onchange="onDoctorOrDateChange()">
+          <option value="د. عبد الرحمن الأمين (استشاري)">د. عبد الرحمن الأمين (استشاري)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- بطاقة تفاصيل دوام الطبيب وسعة الحجز المتاحة -->
+    <div class="doctor-schedule-card" id="doc-schedule-card">
+      <div class="doc-info-side">
+        <div class="doc-avatar" id="sc-avatar">🩺</div>
+        <div>
+          <h4 id="sc-doctor-name">د. عبد الرحمن الأمين</h4>
+          <p>
+            <span>⏰ دوام العيادة: <b id="sc-hours">09:00 ص - 02:00 م</b></span>
+            <span>• 📅 أيام العمل: <b id="sc-days">السبت - الخميس</b></span>
+          </p>
+        </div>
+      </div>
+      <div class="doc-status-side">
+        <span class="status-pill open" id="sc-status-pill">متاحة الآن</span>
+        <span style="font-size:0.75rem;color:var(--gray-base)" id="sc-capacity-text">سعة الحجز: متبقي 15 مقعد</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>تاريخ الموعد المطلوب</label>
+        <input type="date" id="book-date" onchange="onDoctorOrDateChange()" required>
+      </div>
+      <div class="form-group">
+        <label>يوم الحجز وحالة الدوام</label>
+        <input type="text" id="book-day-display" readonly style="background:#F8FAFC;font-weight:700;color:var(--navy)" value="غداً">
+      </div>
+    </div>
+
+    <!-- صندوق تنبيه المواعيد والسعة والإجازات -->
+    <div class="booking-notice" id="booking-notice">
+      <div class="booking-notice-content">
+        <div class="booking-notice-title" id="bn-title">تنبيه</div>
+        <div class="booking-notice-desc" id="bn-desc">لا يمكن الحجز في هذا اليوم.</div>
+        <button type="button" class="btn-jump-next" id="bn-btn-next" onclick="jumpToTomorrow()">
+          <span>الانتقال للحجز ليوم غد</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group" id="slots-wrapper" style="margin-bottom:20px">
+      <label>الوقت المحدد للمقابلة (المواعيد المتاحة ضمن دوام الطبيب)</label>
+      <div class="slots-grid" id="slots-container">
+        <!-- يتم توليد الأوقات برمجياً بحسب وقت دوام الطبيب -->
+      </div>
+    </div>
+
+    <div class="form-section-title">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>3. بيانات المريض</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>اسم المريض الرباعي</label>
+        <input type="text" id="patient-name" placeholder="أدخل اسم المريض" required>
+      </div>
+      <div class="form-group">
+        <label>رقم الهاتف للتواصل والتأكيد</label>
+        <input type="tel" id="patient-phone" placeholder="09xxxxxxx" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>سبب الزيارة أو الأعراض (اختياري)</label>
+      <textarea id="visit-reason" rows="2" placeholder="متابعة دورية، فحص عام، أعراض محددة..."></textarea>
+    </div>
+
+    <div class="form-section-title">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      <span>4. الملف الطبي الإلكتروني الموحد (إرسال ومشاركة الملف مع المركز)</span>
+    </div>
+
+    <!-- بطاقة خيار إرفاق وإرسال الملف الطبي للمركز -->
+    <div class="med-file-attach-card" id="med-file-card">
+      <!-- يتم تعبئتها ديناميكياً بناءً على ما إذا كان المواطن لديه ملف أم لا -->
+    </div>
+
+    <button type="button" class="btn-submit" onclick="submitBooking()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>تأكيد حجز الموعد الطبي واستخراج التذكرة</span>
+    </button>
+  </div>
+
+  <!-- تذكرة الموعد المؤكدة -->
+  <div class="ticket-card" id="ticket-display">
+    <div class="ticket-header">
+      <div>
+        <h3>تذكرة موعد طبي مؤكدة ✅</h3>
+        <span style="font-size:0.75rem;color:rgba(255,255,255,0.7)">منصة أبناء حلفاية الملوك • قطاع الرعاية الصحية</span>
+      </div>
+      <span style="font-family:monospace;font-size:1.1rem;color:var(--gold-beige);font-weight:700" id="ticket-number">BK-HAL-0000</span>
+    </div>
+
+    <div class="ticket-body">
+      <div class="ticket-info">
+        <div class="ticket-row"><span class="tlabel">اسم المريض:</span><span id="t-patient"><b>-</b></span></div>
+        <div class="ticket-row"><span class="tlabel">المركز الصحي:</span><span id="t-center">-</span></div>
+        <div class="ticket-row"><span class="tlabel">العيادة / التخصص:</span><span id="t-clinic">-</span></div>
+        <div class="ticket-row"><span class="tlabel">الطبيب:</span><span id="t-doctor">-</span></div>
+        <div class="ticket-row"><span class="tlabel">الموعد:</span><span id="t-datetime" style="color:var(--gold-beige);font-weight:700">-</span></div>
+        <div class="ticket-row"><span class="tlabel">رقم الهاتف:</span><span id="t-phone"><bdi>-</bdi></span></div>
+        <div class="ticket-row"><span class="tlabel">الملف الطبي:</span><span id="t-file-status">-</span></div>
+      </div>
+
+      <div class="ticket-qr-box" id="ticket-qr"></div>
+    </div>
+
+    <div class="ticket-actions">
+      <button class="btn-ticket-act btn-print" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>طباعة التذكرة</span>
+      </button>
+      <button class="btn-ticket-act btn-new-book" onclick="resetForm()">حجز موعد آخر</button>
+    </div>
+  </div>
+
+  <!-- نافذة معاينة الملف الطبي الموحد للمواطن -->
+  <div class="modal-overlay" id="modal-preview-ehr" onclick="if(event.target===this)closePreviewEHR()">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>معاينة الملف الطبي الموحد</h3>
+        <button type="button" onclick="closePreviewEHR()" style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer">&times;</button>
+      </div>
+      <div class="modal-body" id="preview-ehr-body"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  let selectedCenter = 'مركز صحي حلفاية الملوك النموذجي';
+  let selectedTime = '09:00 ص';
+
+  function selectCenter(el) {
+    document.querySelectorAll('.center-option').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCenter = el.dataset.center;
+    const targetSpan = document.getElementById('mfc-target-center');
+    if (targetSpan) targetSpan.textContent = selectedCenter;
+  }
+
+  const defaultClinicsList = [
+    { id: 1, title: 'الطب العام والطوارئ', doctor: 'د. عبد الرحمن الأمين (استشاري)', icon: '🩺', start_time: '08:00', end_time: '16:00', time_schedule: '08:00 ص - 04:00 م', work_days: 'طيلة أيام الأسبوع', max_patients: 25, status: 'متاحة الآن' },
+    { id: 2, title: 'طب الأطفال وحديثي الولادة', doctor: 'د. فاطمة عثمان (أخصائي)', icon: '👶', start_time: '09:00', end_time: '14:00', time_schedule: '09:00 ص - 02:00 م', work_days: 'السبت - الخميس', max_patients: 15, status: 'متاحة الآن' },
+    { id: 3, title: 'الباطنية والسكري', doctor: 'د. ياسر الشيخ (استشاري)', icon: '🫀', start_time: '09:00', end_time: '14:00', time_schedule: '09:00 ص - 02:00 م', work_days: 'السبت - الخميس', max_patients: 15, status: 'متاحة الآن' },
+    { id: 4, title: 'النساء والتوليد', doctor: 'د. ريم مصطفى (أخصائية)', icon: '🌸', start_time: '09:00', end_time: '13:00', time_schedule: '09:00 ص - 01:00 م', work_days: 'الأحد - الخميس', max_patients: 12, status: 'متاحة الآن' },
+    { id: 5, title: 'طب وجراحة الأسنان', doctor: 'د. هيثم خالد (جراحة أسنان)', icon: '🦷', start_time: '10:00', end_time: '15:00', time_schedule: '10:00 ص - 03:00 م', work_days: 'السبت - الخميس', max_patients: 10, status: 'متاحة الآن' },
+    { id: 6, title: 'العيون والبصريات', doctor: 'د. معتز الفاتح (بصريات)', icon: '👁️', start_time: '10:00', end_time: '14:00', time_schedule: '10:00 ص - 02:00 م', work_days: 'السبت والاثنين والأربعاء', max_patients: 12, status: 'متاحة الآن' }
+  ];
+
+  let allClinics = [...defaultClinicsList];
+
+  function getArabicDayName(dateObj) {
+    const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+    return days[dateObj.getDay()];
+  }
+
+  function isDayInWorkDays(dateObj, workDaysStr) {
+    if (!workDaysStr || workDaysStr === 'طيلة أيام الأسبوع') return true;
+    const day = dateObj.getDay(); // 0: Sun, 1: Mon, 2: Tue, 3: Wed, 4: Thu, 5: Fri, 6: Sat
+    if (workDaysStr === 'السبت - الخميس') {
+      return day !== 5; // الجمعة عطلة
+    }
+    if (workDaysStr === 'الأحد - الخميس') {
+      return day >= 0 && day <= 4; // الجمعة والسبت عطلة
+    }
+    if (workDaysStr === 'السبت والاثنين والأربعاء') {
+      return day === 6 || day === 1 || day === 3;
+    }
+    if (workDaysStr === 'الأحد والثلاثاء والخميس') {
+      return day === 0 || day === 2 || day === 4;
+    }
+    return true;
+  }
+
+  function isPastWorkingHoursToday(clinic) {
+    const now = new Date();
+    const [endH, endM] = (clinic.end_time || '14:00').split(':').map(Number);
+    const curH = now.getHours();
+    const curM = now.getMinutes();
+    return (curH > endH || (curH === endH && curM >= endM));
+  }
+
+  function generateTimeSlots(startTimeStr, endTimeStr) {
+    const slots = [];
+    const [sH, sM] = (startTimeStr || '09:00').split(':').map(Number);
+    const [eH, eM] = (endTimeStr || '14:00').split(':').map(Number);
+    let curMins = sH * 60 + (sM || 0);
+    const endMins = eH * 60 + (eM || 0);
+
+    while (curMins < endMins) {
+      const h = Math.floor(curMins / 60);
+      const m = curMins % 60;
+      const ampm = h >= 12 ? 'م' : 'ص';
+      const h12 = h % 12 || 12;
+      const slotStr = `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${ampm}`;
+      slots.push({ text: slotStr, mins: curMins });
+      curMins += 30; // فترات كل 30 دقيقة
+    }
+    return slots;
+  }
+
+  function getActiveClinic() {
+    const cTitle = document.getElementById('clinic-select').value;
+    const dName = document.getElementById('doctor-select').value;
+    let found = allClinics.find(c => (c.title === cTitle || c.name === cTitle) && (!dName || c.doctor === dName));
+    if (!found) {
+      found = allClinics.find(c => c.title === cTitle || c.name === cTitle);
+    }
+    return found || {
+      title: cTitle,
+      doctor: dName || 'طبيب مناوب',
+      icon: '🩺',
+      start_time: '09:00',
+      end_time: '14:00',
+      time_schedule: '09:00 ص - 02:00 م',
+      work_days: 'السبت - الخميس',
+      max_patients: 15,
+      status: 'متاحة الآن'
+    };
+  }
+
+  function showNotice(type, title, desc, canJump) {
+    const notice = document.getElementById('booking-notice');
+    notice.className = `booking-notice ${type}`;
+    document.getElementById('bn-title').textContent = title;
+    document.getElementById('bn-desc').textContent = desc;
+    document.getElementById('bn-btn-next').style.display = canJump ? 'inline-flex' : 'none';
+    notice.style.display = 'flex';
+  }
+
+  function jumpToTomorrow() {
+    const dateInput = document.getElementById('book-date');
+    const curVal = dateInput.value ? new Date(dateInput.value + 'T00:00:00') : new Date();
+    curVal.setDate(curVal.getDate() + 1);
+    dateInput.value = curVal.toISOString().split('T')[0];
+    onDoctorOrDateChange();
+  }
+
+  function onClinicChange() {
+    const clinicTitle = document.getElementById('clinic-select').value;
+    const docSelect = document.getElementById('doctor-select');
+    docSelect.innerHTML = '';
+    
+    // جلب الأطباء المسجلين لهذه العيادة
+    const matchingDocs = allClinics.filter(c => (c.title === clinicTitle || c.name === clinicTitle));
+    if (matchingDocs.length > 0) {
+      matchingDocs.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.doctor || 'طبيب مناوب';
+        opt.textContent = c.doctor || 'طبيب مناوب';
+        docSelect.appendChild(opt);
+      });
+    } else {
+      const opt = document.createElement('option');
+      opt.value = 'طبيب مناوب';
+      opt.textContent = 'طبيب مناوب';
+      docSelect.appendChild(opt);
+    }
+
+    onDoctorOrDateChange();
+  }
+
+  function onDoctorOrDateChange() {
+    const clinic = getActiveClinic();
+    const dateInput = document.getElementById('book-date');
+    const bookDate = dateInput.value;
+    const submitBtn = document.querySelector('.btn-submit');
+    const noticeBox = document.getElementById('booking-notice');
+    const slotsWrapper = document.getElementById('slots-wrapper');
+
+    // تحديث بطاقة معلومات جدول الطبيب
+    document.getElementById('sc-avatar').textContent = clinic.icon || '🩺';
+    document.getElementById('sc-doctor-name').textContent = `${clinic.doctor || 'طبيب مناوب'} (${clinic.title || clinic.name})`;
+    document.getElementById('sc-hours').textContent = clinic.time_schedule || `${clinic.start_time || '09:00'} - ${clinic.end_time || '14:00'}`;
+    document.getElementById('sc-days').textContent = clinic.work_days || 'السبت - الخميس';
+
+    if (!bookDate) return;
+
+    const [y, m, d] = bookDate.split('-').map(Number);
+    const selectedDateObj = new Date(y, m - 1, d);
+    const dayName = getArabicDayName(selectedDateObj);
+    document.getElementById('book-day-display').value = `${dayName} (${bookDate})`;
+
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0];
+    const isToday = (bookDate === todayStr);
+
+    // حساب الحجوزات القائمة لهذا الطبيب
+    let appointments = [];
+    try { appointments = JSON.parse(localStorage.getItem('halfaia_medical_appointments') || '[]'); } catch(e) {}
+
+    const activeDoc = document.getElementById('doctor-select').value || clinic.doctor;
+    const bookedToday = appointments.filter(a =>
+      (a.doctor === activeDoc || a.clinic === clinic.title) &&
+      (a.appointment_date === bookDate || (isToday && a.appointment_date === 'اليوم')) &&
+      a.status !== 'cancelled'
+    );
+
+    const maxP = parseInt(clinic.max_patients || 15, 10);
+    const remaining = Math.max(0, maxP - bookedToday.length);
+    const statusPill = document.getElementById('sc-status-pill');
+    const capText = document.getElementById('sc-capacity-text');
+
+    capText.textContent = `سعة الحجز لليوم: ${bookedToday.length} / ${maxP} (متبقي ${remaining} مقعد)`;
+
+    // 1. فحص هل التاريخ في الماضي
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (selectedDateObj < todayMidnight) {
+      showNotice('danger', 'تاريخ سابق غير متاح', 'لا يمكن حجز موعد في تاريخ قديم. يرجى اختيار تاريخ اليوم أو موعد قادم.', true);
+      submitBtn.disabled = true;
+      slotsWrapper.style.display = 'none';
+      statusPill.className = 'status-pill closed';
+      statusPill.textContent = 'تاريخ ماضي';
+      return;
+    }
+
+    // 2. فحص إجازة اليوم
+    if (isToday && clinic.status === 'إجازة اليوم') {
+      showNotice('danger', '🚫 الطبيب في إجازة اليوم', `يعتذر المركز، الطبيب (${activeDoc}) في إجازة رسمية اليوم (${clinic.status}) ولا يمكن استقبال الحجوزات لليوم. يحق لك الحجز في يوم غد أو اختيار طبيب آخر.`, true);
+      submitBtn.disabled = true;
+      slotsWrapper.style.display = 'none';
+      statusPill.className = 'status-pill closed';
+      statusPill.textContent = 'إجازة اليوم';
+      return;
+    }
+
+    // 3. فحص انتهاء ساعات الدوام لليوم
+    if (isToday) {
+      const isPastTime = isPastWorkingHoursToday(clinic);
+      if (isPastTime || clinic.status === 'خارج وقت الدوام') {
+        showNotice('warning', '⏰ انتهت ساعات دوام العيادة لليوم', `انتهت ساعات العمل المقررة لعيادة (${clinic.title}) لهذا اليوم (مواعيد الدوام المقررة: ${clinic.time_schedule || clinic.start_time + ' - ' + clinic.end_time}). يحق لك الحجز في موعد يوم غد.`, true);
+        submitBtn.disabled = true;
+        slotsWrapper.style.display = 'none';
+        statusPill.className = 'status-pill warning';
+        statusPill.textContent = 'انتهى الدوام اليوم';
+        return;
+      }
+    }
+
+    // 4. فحص أيام العمل الأسبوعية
+    if (!isDayInWorkDays(selectedDateObj, clinic.work_days)) {
+      showNotice('warning', '🗓️ عطلة أسبوعية للعيادة', `عيادة (${clinic.title} - ${activeDoc}) لا تستقبل المراجعين في يوم ${dayName}. أيام العمل الرسمية هي: (${clinic.work_days}). يرجى اختيار أحد أيام العمل المتاحة.`, true);
+      submitBtn.disabled = true;
+      slotsWrapper.style.display = 'none';
+      statusPill.className = 'status-pill warning';
+      statusPill.textContent = 'عطلة أسبوعية';
+      return;
+    }
+
+    // 5. فحص سعة المرضى (الحد الأقصى للمرضى)
+    if (bookedToday.length >= maxP) {
+      showNotice('danger', '⚠️ اكتمل العدد المحدد لهذا الطبيب', `عذراً، اكتمل العدد الأقصى المحدد من المرضى للطبيب (${activeDoc}) لهذا اليوم (${maxP} من أصل ${maxP} مريض). قم بالحجز لدى الطبيب التالي أو في اليوم التالي.`, true);
+      submitBtn.disabled = true;
+      slotsWrapper.style.display = 'none';
+      statusPill.className = 'status-pill closed';
+      statusPill.textContent = 'اكتمل العدد اليوم';
+      return;
+    }
+
+    // الشروط مستوفاة بالكامل
+    statusPill.className = 'status-pill open';
+    statusPill.textContent = clinic.status || 'متاحة للحجز';
+    noticeBox.style.display = 'none';
+    slotsWrapper.style.display = 'block';
+    submitBtn.disabled = false;
+
+    renderDoctorTimeSlots(clinic, bookedToday, isToday);
+  }
+
+  function renderDoctorTimeSlots(clinic, bookedTodayList, isToday) {
+    const container = document.getElementById('slots-container');
+    const slots = generateTimeSlots(clinic.start_time || '09:00', clinic.end_time || '14:00');
+
+    if (!slots.length) {
+      container.innerHTML = '<p style="color:var(--gray-base);font-size:0.85rem">لا توجد أوقات دوام مسجلة لهذه العيادة.</p>';
+      return;
+    }
+
+    const now = new Date();
+    const curMins = now.getHours() * 60 + now.getMinutes();
+    const bookedTexts = bookedTodayList.map(b => b.time_slot);
+
+    let firstAvailable = null;
+    container.innerHTML = slots.map((s) => {
+      const isBooked = bookedTexts.includes(s.text);
+      const isPassed = isToday && (s.mins <= curMins);
+      const isDisabled = isBooked || isPassed;
+
+      if (!isDisabled && !firstAvailable) {
+        firstAvailable = s.text;
+      }
+
+      let extraClass = '';
+      let hint = '';
+      if (isBooked) {
+        extraClass = 'disabled booked';
+        hint = '<span class="slot-hint">محجوز</span>';
+      } else if (isPassed) {
+        extraClass = 'disabled passed';
+        hint = '<span class="slot-hint">مضى</span>';
+      }
+
+      const isSelected = (!isDisabled && s.text === selectedTime);
+
+      return `
+        <div class="time-slot ${extraClass} ${isSelected ? 'selected' : ''}" 
+             ${isDisabled ? '' : `onclick="selectSlot(this, '${s.text}')"`}>
+          <span>${s.text}</span>
+          ${hint}
+        </div>
+      `;
+    }).join('');
+
+    if (!firstAvailable) {
+      showNotice('warning', 'لا توجد فترات شاغرة اليوم', 'جميع فترات الكشف المتاحة لهذا اليوم قد تم حجزها أو مضى وقتها. يرجى الحجز ليوم غد.', true);
+      document.querySelector('.btn-submit').disabled = true;
+    } else {
+      if (!slots.some(s => s.text === selectedTime && !bookedTexts.includes(s.text) && !(isToday && s.mins <= curMins))) {
+        selectedTime = firstAvailable;
+        document.querySelectorAll('.time-slot').forEach(el => {
+          const sp = el.querySelector('span');
+          if (sp && sp.textContent === selectedTime) {
+            el.classList.add('selected');
+          }
+        });
+      }
+    }
+  }
+
+  function selectSlot(el, time) {
+    if (el.classList.contains('disabled')) return;
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedTime = time;
+  }
+
+  async function loadDynamicClinics() {
+    let customClinics = [];
+    try {
+      customClinics = JSON.parse(localStorage.getItem('halfaia_clinics_data') || '[]');
+    } catch(e) {}
+
+    // بيانات المركز المحدثة
+    try {
+      const cInfo = JSON.parse(localStorage.getItem('halfaia_center_info') || '{}');
+      if (cInfo.name) {
+        const firstCenterEl = document.querySelector('.center-option');
+        if (firstCenterEl) {
+          firstCenterEl.dataset.center = cInfo.name;
+          const h4 = firstCenterEl.querySelector('h4');
+          if (h4) h4.textContent = cInfo.name;
+          const p = firstCenterEl.querySelector('p');
+          if (p) p.textContent = (cInfo.address || 'حلفاية الملوك') + (cInfo.hours ? ' • ' + cInfo.hours : '');
+          if (firstCenterEl.classList.contains('selected')) {
+            selectedCenter = cInfo.name;
+          }
+        }
+      }
+    } catch(e) {}
+
+    try {
+      const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+      const res = await fetch(`${API_BASE}/api/medical/clinics`);
+      if (res.ok) {
+        const data = await res.json();
+        const serverClinics = Array.isArray(data) ? data : (data.clinics || []);
+        if (Array.isArray(serverClinics) && serverClinics.length > 0) {
+          customClinics = serverClinics;
+          localStorage.setItem('halfaia_clinics_data', JSON.stringify(customClinics));
+        }
+      }
+    } catch(e) {}
+
+    if (customClinics && customClinics.length > 0) {
+      allClinics = customClinics;
+      const clinicSelect = document.getElementById('clinic-select');
+      clinicSelect.innerHTML = '';
+      
+      const uniqueTitles = [...new Set(allClinics.map(c => c.title || c.name || 'عيادة عامة'))];
+      uniqueTitles.forEach(t => {
+        const cObj = allClinics.find(x => (x.title === t || x.name === t));
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = `${cObj.icon || '🩺'} ${t}`;
+        clinicSelect.appendChild(opt);
+      });
+    }
+
+    onClinicChange();
+  }
+
+  // تعبئة بيانات المستخدم تلقائياً
+  const rawUser = localStorage.getItem('halfaia_current_user');
+  let currentUser = null;
+  try { currentUser = rawUser ? JSON.parse(rawUser) : null; } catch(e) {}
+
+  if (currentUser) {
+    // محاولة قراءة الهوية المعتمدة للاسم الرباعي
+    const cachedId = localStorage.getItem('halfaia_approved_id_' + currentUser.identifier);
+    if (cachedId) {
+      try {
+        const idData = JSON.parse(cachedId);
+        if (idData.full_name) document.getElementById('patient-name').value = idData.full_name;
+        if (idData.phone) document.getElementById('patient-phone').value = idData.phone;
+      } catch(e) {}
+    } else {
+      if (currentUser.identifier) document.getElementById('patient-name').value = currentUser.identifier;
+      if (currentUser.phone) document.getElementById('patient-phone').value = currentUser.phone;
+    }
+  }
+
+  // دوال فحص وإرفاق الملف الطبي الموحد
+  function getUserMedicalFile() {
+    let file = null;
+    const activeId = currentUser ? currentUser.identifier : 'guest';
+    const savedFile = localStorage.getItem('halfaia_med_file_' + activeId) || localStorage.getItem('halfaia_user_medical_file');
+    if (savedFile) {
+      try { file = JSON.parse(savedFile); } catch(e) {}
+    }
+    return file;
+  }
+
+  function renderMedicalFileOption() {
+    const card = document.getElementById('med-file-card');
+    if (!card) return;
+    const file = getUserMedicalFile();
+
+    if (file && file.mrn) {
+      card.innerHTML = `
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;border-radius:12px;background:#DDF3F1;color:#167C80;display:grid;place-items:center;font-size:1.3rem;flex-shrink:0">📂</div>
+            <div>
+              <h4 style="font-family:'Noto Kufi Arabic';font-size:0.92rem;color:var(--navy);margin-bottom:3px">
+                الملف الطبي الموحد: <span id="mfc-mrn" style="color:#167C80;font-weight:700">${file.mrn}</span>
+              </h4>
+              <p style="font-size:0.78rem;color:var(--gray-base)">
+                المريض: <b id="mfc-name">${file.name || 'مواطن'}</b> • فصيلة الدم: <b id="mfc-blood" style="color:#DC2626">${file.blood || 'غير محدد'}</b> • الأمراض: <span>${file.chronic || 'لا توجد'}</span>
+              </p>
+            </div>
+          </div>
+          <button type="button" class="btn-preview-file" onclick="previewUserMedicalFile()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span>معاينة الملف الطبي</span>
+          </button>
+        </div>
+
+        <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;font-weight:700;color:var(--navy)">
+            <input type="checkbox" id="send-med-file-check" checked style="width:20px;height:20px;accent-color:#167C80;cursor:pointer">
+            <span>إرسال ومشاركة ملفي الطبي الموحد مع <span id="mfc-target-center" style="color:#167C80">${selectedCenter}</span></span>
+          </label>
+          <span style="font-size:0.74rem;color:#166534;background:#DCFCE7;padding:3px 10px;border-radius:12px;font-weight:600">سيتم إرفاق الملف لسجلات المركز مع هذا الحجز ✅</span>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;border-radius:12px;background:#F1F5F9;color:#64748B;display:grid;place-items:center;font-size:1.3rem;flex-shrink:0">📄</div>
+            <div>
+              <h4 style="font-family:'Noto Kufi Arabic';font-size:0.9rem;color:var(--navy);margin-bottom:3px">لم تقم بفتح ملف طبي إلكتروني موحد بعد</h4>
+              <p style="font-size:0.76rem;color:var(--gray-base)">يمكنك فتح ملف طبي مجاني لحفظ فصيلة دمك وتاريخك المرضي ومشاركته مع المركز الصحي عند الحجز.</p>
+            </div>
+          </div>
+          <a href="medical-file.html" class="btn-create-file" target="_blank" style="text-decoration:none">
+            <span>+ فتح ملف طبي إلكتروني</span>
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  function previewUserMedicalFile() {
+    const file = getUserMedicalFile();
+    if (!file) return;
+    const body = document.getElementById('preview-ehr-body');
+    const row = (label, val) => `<div class="preview-row"><span class="preview-label">${label}:</span><span class="preview-val">${val || '-'}</span></div>`;
+    body.innerHTML = `
+      ${row('رقم الملف الموحد', `<b style="color:#167C80">${file.mrn}</b>`)}
+      ${row('اسم المريض', file.name)}
+      ${row('الرقم الوطني', file.natId)}
+      ${row('تاريخ الميلاد', file.birth)}
+      ${row('النوع', file.gender)}
+      ${row('فصيلة الدم', `<b style="color:#DC2626">${file.blood}</b>`)}
+      ${row('الأمراض المزمنة', file.chronic)}
+      ${row('الحساسية الدوائية', file.allergies)}
+      ${row('جهة اتصال الطوارئ', file.emg)}
+    `;
+    document.getElementById('modal-preview-ehr').style.display = 'flex';
+  }
+
+  function closePreviewEHR() {
+    document.getElementById('modal-preview-ehr').style.display = 'none';
+  }
+
+  // ضبط التاريخ الافتراضي (غداً)
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('book-date').value = tomorrow.toISOString().split('T')[0];
+
+  // استدعاء التحميل الأولي
+  loadDynamicClinics();
+  renderMedicalFileOption();
+
+  function submitBooking() {
+    const patientName = document.getElementById('patient-name').value.trim();
+    const patientPhone = document.getElementById('patient-phone').value.trim();
+    const bookDate = document.getElementById('book-date').value;
+    const clinic = document.getElementById('clinic-select').value;
+    const doctor = document.getElementById('doctor-select').value;
+
+    if (!patientName || !patientPhone || !bookDate) {
+      alert('يرجى ملء جميع الحقول الإلزامية.');
+      return;
+    }
+
+    if (!selectedTime) {
+      alert('يرجى اختيار وقت المقابلة المناسب.');
+      return;
+    }
+
+    // تحقق إضافي أخير من سعة الطبيب لهذا اليوم
+    const clinicObj = getActiveClinic();
+    const maxP = parseInt(clinicObj.max_patients || 15, 10);
+    let existing = [];
+    try { existing = JSON.parse(localStorage.getItem('halfaia_medical_appointments') || '[]'); } catch(e) {}
+    const count = existing.filter(a => (a.doctor === doctor || a.clinic === clinic) && a.appointment_date === bookDate && a.status !== 'cancelled').length;
+    if (count >= maxP) {
+      alert(`عذراً، اكتمل العدد الأقصى المحدد لهذا الطبيب في هذا اليوم (${maxP} مريض). يرجى الحجز في اليوم التالي أو اختيار طبيب آخر.`);
+      onDoctorOrDateChange();
+      return;
+    }
+
+    const bookingNum = 'BK-HAL-' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('ticket-number').textContent = bookingNum;
+    document.getElementById('t-patient').textContent = patientName;
+    document.getElementById('t-center').textContent = selectedCenter;
+    document.getElementById('t-clinic').textContent = clinic;
+    document.getElementById('t-doctor').textContent = doctor;
+    document.getElementById('t-datetime').textContent = `${bookDate} (${selectedTime})`;
+    document.getElementById('t-phone').textContent = patientPhone;
+
+    // فحص إرسال الملف الطبي
+    const sendFileCheck = document.getElementById('send-med-file-check');
+    const shouldSendFile = Boolean(sendFileCheck && sendFileCheck.checked);
+    const userFile = getUserMedicalFile();
+    const hasFileAttached = (shouldSendFile && userFile && userFile.mrn);
+
+    // حفظ الحجز في المنظومة الطبية الموحدة ليظهر في لوحة تحكم المركز الصحي
+    const appointmentRecord = {
+      id: Date.now(),
+      booking_num: bookingNum,
+      patient_name: patientName,
+      patient_phone: patientPhone,
+      center_name: selectedCenter,
+      clinic: clinic,
+      doctor: doctor,
+      appointment_date: bookDate,
+      time_slot: selectedTime,
+      has_medical_file: hasFileAttached ? 1 : 0,
+      mrn: hasFileAttached ? userFile.mrn : '',
+      status: 'pending'
+    };
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('halfaia_medical_appointments') || '[]');
+      existing.unshift(appointmentRecord);
+      localStorage.setItem('halfaia_medical_appointments', JSON.stringify(existing));
+
+      const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+      fetch(`${API_BASE}/api/medical/appointments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(appointmentRecord)
+      }).catch(() => {});
+    } catch(e) {}
+
+    // إرسال الملف الطبي خصيصاً للمركز الذي تم الحجز فيه فقط إذا وافق المواطن
+    if (hasFileAttached) {
+      const activeId = currentUser ? currentUser.identifier : 'guest';
+      const ehrRecord = {
+        userIdentifier: activeId,
+        mrn: userFile.mrn,
+        full_name: userFile.name || patientName,
+        national_id: userFile.natId || '',
+        phone: patientPhone,
+        blood_type: userFile.blood || 'غير محدد',
+        chronic_diseases: userFile.chronic || 'لا يوجد',
+        allergies: userFile.allergies || 'لا يوجد',
+        emergency_contact: userFile.emg || '',
+        emergency_phone: '',
+        center_name: selectedCenter,
+        booking_num: bookingNum,
+        created_at: new Date().toISOString()
+      };
+
+      try {
+        const existingFiles = JSON.parse(localStorage.getItem('halfaia_medical_files') || '[]');
+        const filtered = existingFiles.filter(f => !(f.mrn === userFile.mrn && f.center_name === selectedCenter));
+        filtered.unshift(ehrRecord);
+        localStorage.setItem('halfaia_medical_files', JSON.stringify(filtered));
+
+        const API_BASE = window.location.origin.startsWith('http') ? '' : 'http://localhost:3000';
+        fetch(`${API_BASE}/api/medical/files`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(ehrRecord)
+        }).catch(() => {});
+      } catch(e) {}
+
+      document.getElementById('t-file-status').innerHTML = `<span style="color:#2ED573;font-weight:700">تم إرسال الملف الطبي للمركز بنجاح (${userFile.mrn}) ✅</span>`;
+    } else {
+      document.getElementById('t-file-status').innerHTML = `<span style="color:var(--gray-base)">لم يتم إرفاق ملف طبي</span>`;
+    }
+
+    // توليد QR تذكرة الموعد
+    const qrContainer = document.getElementById('ticket-qr');
+    qrContainer.innerHTML = '';
+    const qrText = `تذكرة موعد طبي - حلفاية الملوك\nرقم الحجز: ${bookingNum}\nالمريض: ${patientName}\nالمركز: ${selectedCenter}\nالعيادة: ${clinic}\nالطبيب: ${doctor}\nالموعد: ${bookDate} ${selectedTime}\nالملف الطبي: ${hasFileAttached ? userFile.mrn : 'غير مرفق'}`;
+
+    if (typeof qrcode === 'function') {
+      try {
+        if (qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+          qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        }
+        const qr = qrcode(0, 'M');
+        qr.addData(qrText, 'Byte');
+        qr.make();
+        qrContainer.innerHTML = qr.createImgTag(3, 2);
+        const img = qrContainer.querySelector('img');
+        if (img) { img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'contain'; }
+      } catch(e) {}
+    } else {
+      qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${encodeURIComponent(qrText)}" alt="QR" style="width:100%;height:100%">`;
+    }
+
+    document.getElementById('booking-form-card').style.display = 'none';
+    const ticket = document.getElementById('ticket-display');
+    ticket.style.display = 'block';
+    ticket.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    document.getElementById('ticket-display').style.display = 'none';
+    document.getElementById('booking-form-card').style.display = 'block';
+    renderMedicalFileOption();
+  }
+</script>
+
+</body>
+</html>

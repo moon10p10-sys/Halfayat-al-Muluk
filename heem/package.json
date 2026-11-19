@@ -1,0 +1,15 @@
+{
+  "name": "halfaia-platform",
+  "version": "1.0.0",
+  "description": "منصة أبناء حلفاية الملوك المتكاملة",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

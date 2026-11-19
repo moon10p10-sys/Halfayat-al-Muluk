@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلفاية الملوك | استلام نتائج المختبر والأشعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gray-base:#808080; --navy:#1E3A5F; --navy-dark:#152C48; --navy-light:#2A4E7A;
+    --gold-beige:#E8CFA8; --gold-hover:#D4B88E;
+    --bg-page:#F0F2F5; --bg-card:#FFFFFF; --line:rgba(30,58,95,0.12);
+    --shadow-sm:0 1px 3px rgba(30,58,95,0.06);
+    --shadow-md:0 6px 20px rgba(30,58,95,0.08);
+    --shadow-lg:0 14px 34px rgba(30,58,95,0.14);
+    --success:#1E7E34; --radius:16px; --radius-sm:10px;
+    --transition:all .25s cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans Arabic","Segoe UI",sans-serif;color:var(--navy);background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  button,input,select{font-family:inherit}
+
+  .top-bar{background:var(--bg-card);padding:10px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:relative;z-index:10}
+  .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy-dark)}
+  .logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--gold-beige),var(--gold-hover));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+  .brand-title{font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:1.1rem}
+  .btn-back{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--radius-sm);background:rgba(30,58,95,.05);border:1px solid var(--line);color:var(--navy);font-weight:600;font-size:.85rem;text-decoration:none;transition:var(--transition)}
+  .btn-back:hover{background:var(--navy);color:var(--gold-beige)}
+
+  .hero-strip{background:linear-gradient(120deg,var(--navy-dark),var(--navy) 60%,var(--navy-light));color:#fff;padding:32px clamp(16px,4vw,48px);border-bottom:3px solid var(--gold-beige)}
+  .hero-inner{max-width:1050px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .hero-title h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.45rem;color:var(--gold-beige);margin-bottom:6px}
+  .hero-title p{font-size:.9rem;color:rgba(255,255,255,.85);max-width:580px;line-height:1.6}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,207,168,.15);border:1px solid rgba(232,207,168,.3);padding:6px 14px;border-radius:20px;color:var(--gold-beige);font-size:.8rem;font-weight:600}
+
+  .main-wrapper{max-width:1050px;width:100%;margin:28px auto 60px;padding:0 16px;flex:1}
+
+  /* بطاقة البحث والاستعلام بكود الإيصال */
+  .search-card{background:#fff;border-radius:var(--radius);padding:20px 24px;border:1px solid var(--line);box-shadow:var(--shadow-sm);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .search-info h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.05rem;color:var(--navy-dark);margin-bottom:3px}
+  .search-info p{font-size:.84rem;color:var(--gray-base)}
+  .search-form{display:flex;gap:10px;flex:1;max-width:480px}
+  .search-input{flex:1;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--line);font-size:.9rem}
+  .btn-query{padding:10px 20px;background:var(--navy);color:var(--gold-beige);border:none;border-radius:var(--radius-sm);font-weight:700;font-size:.86rem;cursor:pointer;white-space:nowrap;transition:var(--transition)}
+  .btn-query:hover{background:var(--navy-dark)}
+
+  /* تصفية النتائج */
+  .tabs-filter{display:flex;gap:10px;margin-bottom:18px;border-bottom:2px solid var(--line);padding-bottom:12px}
+  .tab-btn{padding:8px 18px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:600;font-size:.84rem;cursor:pointer;transition:var(--transition)}
+  .tab-btn.active{background:var(--navy);color:var(--gold-beige);border-color:var(--navy)}
+
+  /* قائمة النتائج */
+  .results-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  .result-card{background:#fff;border-radius:var(--radius);padding:22px 24px;border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;transition:var(--transition)}
+  .result-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--navy-light)}
+
+  .result-meta{display:flex;align-items:center;gap:16px}
+  .result-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .result-icon.lab{background:rgba(30,58,95,.08);color:var(--navy)}
+  .result-icon.xray{background:rgba(232,207,168,.25);color:#8A6428}
+  .result-icon svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2}
+
+  .result-details h4{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.02rem;color:var(--navy-dark);margin-bottom:4px}
+  .result-details p{font-size:.82rem;color:var(--gray-base);line-height:1.5}
+  .result-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;font-size:.74rem;font-weight:700;margin-top:6px}
+  .result-badge.ready{background:rgba(30,126,52,.12);color:var(--success);border:1px solid rgba(30,126,52,.25)}
+
+  .result-actions{display:flex;align-items:center;gap:10px}
+  .btn-res{padding:9px 18px;border-radius:8px;font-weight:700;font-size:.84rem;cursor:pointer;border:none;transition:var(--transition);display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+  .btn-view{background:var(--navy);color:var(--gold-beige)}
+  .btn-view:hover{background:var(--navy-dark)}
+  .btn-download{background:rgba(30,58,95,.08);color:var(--navy);border:1px solid var(--line)}
+  .btn-download:hover{background:var(--navy);color:var(--gold-beige)}
+
+  /* نافذة المعاينة المنبثقة */
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,31,51,.75);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+  .modal-overlay.active{display:flex}
+  .modal-report{background:#fff;border-radius:var(--radius);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:28px 24px;border-top:5px solid var(--gold-beige);box-shadow:var(--shadow-lg);position:relative}
+  .modal-close{position:absolute;top:16px;left:18px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--gray-base)}
+  .rep-header{text-align:center;border-bottom:2px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  .rep-header h3{font-family:"Noto Kufi Arabic",sans-serif;font-size:1.2rem;color:var(--navy-dark)}
+  .rep-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+  .rep-table th,.rep-table td{padding:10px 12px;border:1px solid var(--line);text-align:right}
+  .rep-table th{background:#F8FAFC;color:var(--navy-dark);font-family:"Noto Kufi Arabic",sans-serif;font-size:.82rem}
+  .rep-status-norm{color:var(--success);font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="individual.html" class="brand">
+    <div class="logo-mark"></div>
+    <span class="brand-title">منصة أبناء حلفاية الملوك</span>
+  </a>
+  <a href="individual.html" class="btn-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span>الرجوع للرئيسية</span>
+  </a>
+</header>
+
+<section class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-title">
+      <h1>استلام نتائج المختبر والأشعة</h1>
+      <p>استعراض وتقارير الفحوصات المخبرية ونتائج الأشعة التشخيصية الصادرة من مراكز ومجمعات حلفاية الملوك الصحية مع إمكانية التحميل والطباعة فورياً.</p>
+    </div>
+    <span class="hero-badge">✦ بوابة التقارير الطبية الآمنة</span>
+  </div>
+</section>
+
+<main class="main-wrapper">
+
+  <!-- شريط البحث السريع بكود الإيصال -->
+  <div class="search-card">
+    <div class="search-info">
+      <h3>الاستعلام عن نتيجة فحص جديدة</h3>
+      <p>أدخل كود الفحص الموضح في إيصال المختبر لعرض التقرير فوراً.</p>
+    </div>
+    <div class="search-form">
+      <input type="text" class="search-input" id="search-code" placeholder="مثال: LAB-7842 أو XR-3105">
+      <button class="btn-query" onclick="queryCode()">استعلام 🔍</button>
+    </div>
+  </div>
+
+  <!-- التصفية -->
+  <div class="tabs-filter">
+    <button class="tab-btn active" onclick="filterResults('all', this)">جميع التقارير (3)</button>
+    <button class="tab-btn" onclick="filterResults('lab', this)">فحوصات المختبر (2)</button>
+    <button class="tab-btn" onclick="filterResults('xray', this)">تقارير الأشعة (1)</button>
+  </div>
+
+  <!-- قائمة النتائج -->
+  <div class="results-grid">
+    <div id="dynamic-results" style="display:contents"></div>
+
+    <!-- النتيجة 1: CBC -->
+    <div class="result-card" data-type="lab">
+      <div class="result-meta">
+        <div class="result-icon lab">
+          <svg viewBox="0 0 24 24"><path d="M6 2v6a6 6 0 0 0 12 0V2"></path><path d="M4 2h16"></path><path d="M9 13v3"></path><path d="M15 13v3"></path></svg>
+        </div>
+        <div class="result-details">
+          <h4>فحص صورة الدم الكاملة (Complete Blood Count - CBC)</h4>
+          <p>رقم الفحص: <b>#LAB-7842</b> • تاريخ: 15 نوفمبر 2026 • مركز صحي حلفاية الملوك النموذجي</p>
+          <span class="result-badge ready">معتمد وجاهز للاستلام ✅</span>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-res btn-view" onclick="openReport('cbc')">عرض التقرير</button>
+        <button class="btn-res btn-download" onclick="window.print()">طباعة</button>
+      </div>
+    </div>
+
+    <!-- النتيجة 2: HbA1c -->
+    <div class="result-card" data-type="lab">
+      <div class="result-meta">
+        <div class="result-icon lab">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        </div>
+        <div class="result-details">
+          <h4>فحص السكر التراكمي ووظائف الكلى (HbA1c & Creatinine)</h4>
+          <p>رقم الفحص: <b>#LAB-6190</b> • تاريخ: 08 نوفمبر 2026 • مجمع عيادات الحلفاية المركزية</p>
+          <span class="result-badge ready">معتمد وجاهز للاستلام ✅</span>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-res btn-view" onclick="openReport('hba1c')">عرض التقرير</button>
+        <button class="btn-res btn-download" onclick="window.print()">طباعة</button>
+      </div>
+    </div>
+
+    <!-- النتيجة 3: X-Ray -->
+    <div class="result-card" data-type="xray">
+      <div class="result-meta">
+        <div class="result-icon xray">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        </div>
+        <div class="result-details">
+          <h4>تقرير الأشعة السينية الرقمية للصدر (Chest X-Ray)</h4>
+          <p>رقم الفحص: <b>#XR-3105</b> • تاريخ: 01 نوفمبر 2026 • مركز الشعبية جنوب للرعاية</p>
+          <span class="result-badge ready">معتمد وجاهز للاستلام ✅</span>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-res btn-view" onclick="openReport('xray')">عرض التقرير</button>
+        <button class="btn-res btn-download" onclick="window.print()">طباعة</button>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- نافذة المعاينة المنبثقة للتقرير الطبي -->
+<div class="modal-overlay" id="report-modal">
+  <div class="modal-report">
+    <button class="modal-close" onclick="closeReport()">&times;</button>
+    <div id="modal-report-content"></div>
+  </div>
+</div>
+
+<script>
+  function filterResults(type, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.result-card').forEach(c => {
+      if (type === 'all' || c.dataset.type === type) {
+        c.style.display = 'flex';
+      } else {
+        c.style.display = 'none';
+      }
+    });
+  }
+
+  function queryCode() {
+    const code = document.getElementById('search-code').value.trim().toUpperCase();
+    if (!code) return alert('يرجى إدخال كود الفحص.');
+    if (code.includes('LAB') || code.includes('7842')) {
+      openReport('cbc');
+    } else if (code.includes('XR') || code.includes('3105')) {
+      openReport('xray');
+    } else {
+      alert(`التقرير ذو الرمز (${code}) جاري تحليله في المختبر، وسيظهر هنا فور اعتماده من الطبيب.`);
+    }
+  }
+
+  const reportsData = {
+    cbc: {
+      title: 'تقرير فحص الدم الشامل (CBC Report)',
+      num: 'LAB-7842',
+      date: '2026-11-15',
+      doctor: 'د. عبد الرحمن الأمين',
+      center: 'مركز صحي حلفاية الملوك النموذجي',
+      table: `
+        <tr><th>عنصر الفحص</th><th>النتيجة</th><th>المعدل الطبيعي</th><th>الحالة</th></tr>
+        <tr><td>الهيموجلوبين (Hemoglobin)</td><td><b>14.2 g/dL</b></td><td>13.0 - 17.0</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+        <tr><td>كريات الدم البيضاء (WBC)</td><td><b>6.8 k/uL</b></td><td>4.5 - 11.0</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+        <tr><td>الصفائح الدموية (Platelets)</td><td><b>260 k/uL</b></td><td>150 - 450</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+        <tr><td>خلايا الدم الحمراء (RBC)</td><td><b>4.9 M/uL</b></td><td>4.3 - 5.9</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+      `,
+      notes: 'المؤشرات الدموية ضمن المعدلات الطبيعية الممتازة ولا توجد دلائل على فقر دم أو عدوى نشطة.'
+    },
+    hba1c: {
+      title: 'تقرير السكر التراكمي ووظائف الكلى',
+      num: 'LAB-6190',
+      date: '2026-11-08',
+      doctor: 'د. نهى السر (استشارية)',
+      center: 'مجمع عيادات الحلفاية المركزية',
+      table: `
+        <tr><th>عنصر الفحص</th><th>النتيجة</th><th>المعدل الطبيعي</th><th>الحالة</th></tr>
+        <tr><td>السكر التراكمي (HbA1c)</td><td><b>5.4 %</b></td><td>أقل من 5.7 %</td><td class="rep-status-norm">طبيعي ومثالي ✓</td></tr>
+        <tr><td>الكرياتينين (Creatinine)</td><td><b>0.88 mg/dL</b></td><td>0.7 - 1.3</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+        <tr><td>اليوريا (Urea)</td><td><b>24 mg/dL</b></td><td>15 - 45</td><td class="rep-status-norm">طبيعي ✓</td></tr>
+      `,
+      notes: 'التحكم بالسكر ممتاز ووظائف الكلى سليمة تماماً.'
+    },
+    xray: {
+      title: 'تقرير الأشعة السينية الرقمية (Chest X-Ray)',
+      num: 'XR-3105',
+      date: '2026-11-01',
+      doctor: 'د. يوسف إبراهيم (أخصائي أشعة)',
+      center: 'مركز الشعبية جنوب للرعاية',
+      table: `
+        <tr><th>الفحص المطلوب</th><th>المشاهدة الطبية</th><th>التقييم</th></tr>
+        <tr><td>أشعة الصدر (PA View)</td><td>حجم القلب والمجاري الهوائية والرئتين سليم تماماً بدون ارتشاح</td><td class="rep-status-norm">سليم 100% ✓</td></tr>
+      `,
+      notes: 'لا توجد أي التهابات رئوية أو شوائب، القفص الصدري سليم.'
+    }
+  };
+
+  function openReport(key) {
+    const rep = reportsData[key];
+    if (!rep) return;
+
+    const modalContent = document.getElementById('modal-report-content');
+    modalContent.innerHTML = `
+      <div class="rep-header">
+        <h3>${rep.title}</h3>
+        <p style="font-size:0.84rem;color:var(--gray-base);margin-top:4px">رقم التقرير: <b>#${rep.num}</b> • التاريخ: ${rep.date}</p>
+        <p style="font-size:0.84rem;color:var(--navy);margin-top:2px">المركز المصدر: ${rep.center} • الطبيب المشرف: ${rep.doctor}</p>
+      </div>
+
+      <table class="rep-table">
+        ${rep.table}
+      </table>
+
+      <div style="background:#F8FAFC;padding:12px;border-radius:8px;border:1px solid var(--line);margin:16px 0;font-size:0.86rem">
+        <b>ملاحظات الطبيب الاستشاري:</b>
+        <p style="margin-top:4px;color:var(--navy-dark)">${rep.notes}</p>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;border-top:1px solid var(--line);padding-top:14px">
+        <span style="font-size:0.75rem;color:var(--gray-base)">تقرير صادر وموثق إلكترونياً • منصة حلفاية الملوك</span>
+        <button class="btn-res btn-view" onclick="window.print()">🖨️ طباعة التقرير</button>
+      </div>
+    `;
+
+    document.getElementById('report-modal').classList.add('active');
+  }
+
+  function closeReport() {
+    document.getElementById('report-modal').classList.remove('active');
+  }
+
+  function openCustomReport(index) {
+    const list = JSON.parse(localStorage.getItem('halfaia_medical_results') || '[]');
+    const r = list[index];
+    if (!r) return;
+    const modalContent = document.getElementById('modal-report-content');
+    modalContent.innerHTML = `
+      <div class="rep-header">
+        <h3>${escapeHtml(r.test_type)}</h3>
+        <p style="font-size:0.84rem;color:var(--gray-base);margin-top:4px">المريض: <b>${escapeHtml(r.patient_name || '-')}</b> • رقم الملف: <b>#${escapeHtml(r.mrn || '-')}</b> • التاريخ: ${escapeHtml(r.test_date || 'اليوم')}</p>
+        <p style="font-size:0.84rem;color:var(--navy);margin-top:2px">المركز المصدر: ${escapeHtml(r.center_name || 'مركز صحي حلفاية الملوك')} • الطبيب المشرف: ${escapeHtml(r.doctor_name || 'د. استشاري التحاليل')}</p>
+      </div>
+
+      <div style="background:#F0F9F8;padding:14px;border-radius:10px;border:1.5px solid #BCE5E2;margin:16px 0;font-size:0.9rem">
+        <b style="color:#167C80">ملخص النتيجة والتقرير الطبي:</b>
+        <p style="margin-top:6px;color:#263B50;line-height:1.7">${escapeHtml(r.summary || 'تم اعتماد النتائج')}</p>
+      </div>
+
+      ${r.result_image ? `
+        <div style="margin:16px 0;text-align:center">
+          <div style="font-size:0.82rem;font-weight:bold;color:var(--navy);margin-bottom:8px">مرفق صورة تقرير الفحص / الأشعة:</div>
+          <a href="${r.result_image}" target="_blank" title="انقر لتكبير الصورة">
+            <img src="${r.result_image}" alt="مرفق التقرير" style="max-width:100%;max-height:350px;border-radius:10px;border:1px solid #CBD5E1;box-shadow:0 4px 14px rgba(0,0,0,0.08);cursor:zoom-in">
+          </a>
+          <p style="font-size:0.75rem;color:var(--gray-base);margin-top:6px">اضغط على الصورة لفتحها بحجم كامل</p>
+        </div>
+      ` : ''}
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;border-top:1px solid var(--line);padding-top:14px">
+        <span style="font-size:0.75rem;color:var(--gray-base)">تقرير صادر ومعتمد من المركز الصحي • منصة حلفاية الملوك</span>
+        <button class="btn-res btn-view" onclick="window.print()">🖨️ طباعة التقرير</button>
+      </div>
+    `;
+    document.getElementById('report-modal').classList.add('active');
+  }
+
+  // مزامنة وعرض الفحوصات الصادرة حديثاً من بوابة المركز الصحي
+  try {
+    const customResults = JSON.parse(localStorage.getItem('halfaia_medical_results') || '[]');
+    const dynContainer = document.getElementById('dynamic-results');
+    if (dynContainer && customResults.length) {
+      dynContainer.innerHTML = customResults.map((r, i) => `
+        <div class="result-card" data-type="lab" style="border: 2px solid #167C80; background: #FAFDFD;">
+          <div class="result-meta">
+            <div class="result-icon lab" style="background:#DDF3F1;color:#167C80">
+              <svg viewBox="0 0 24 24"><path d="M6 2v6a6 6 0 0 0 12 0V2"></path><path d="M4 2h16"></path><path d="M9 13v3"></path><path d="M15 13v3"></path></svg>
+            </div>
+            <div class="result-details">
+              <h4>${escapeHtml(r.test_type)}</h4>
+              <p>المريض: <b>${escapeHtml(r.patient_name)}</b> (${escapeHtml(r.mrn || 'MRN')}) • تاريخ: ${escapeHtml(r.test_date || 'اليوم')} • الطبيب المعتمد: ${escapeHtml(r.doctor_name || 'د. استشاري التحاليل')}</p>
+              <span class="result-badge ready" style="background:#DDF3F1;color:#167C80">معتمد وجاهز من المركز الصحي ✅</span>
+            </div>
+          </div>
+          <div class="result-actions">
+            <button class="btn-res btn-view" onclick="openCustomReport(${i})">عرض التقرير</button>
+            <button class="btn-res btn-download" onclick="window.print()">طباعة</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  } catch(e) {}
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, m => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    })[m]);
+  }
+</script>
+
+</body>
+</html>
